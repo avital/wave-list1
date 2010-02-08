@@ -358,6 +358,10 @@ var we = {
                                                 var itemEditButton = itemEdit.getElements('button').hide();
                                                 var itemEditPlaceholder = new Element('span').inject(itemEdit);
 
+                                                var itemMove = $('move-proto').clone().inject(item);
+                                                var itemMoveButton = itemEdit.getElements('.move').hide();
+                                                var itemMovePlaceholder = new Element('span').inject(itemEdit);
+
                                                 var itemTextCell = new Element('td').inject(item);
                                                 var itemText = new Element('span', {'class': 'item-text', id: id + '-text'}).inject(itemTextCell);
                                                 var itemTextEdit = new Element('input', {'class': 'edit'}).inject(itemTextCell);
@@ -386,6 +390,9 @@ var we = {
 
                                                         itemEditButton.hide();
                                                         itemEditPlaceholder.show();
+
+                                                        itemMoveButton.hide();
+                                                        itemMovePlaceholder.show();
                                                 };
 
                                                 item.addEvent('mouseover', function() {
@@ -395,6 +402,9 @@ var we = {
 
                                                                 itemEditButton.show();
                                                                 itemEditPlaceholder.hide();
+
+                                                                itemMoveButton.show();
+                                                                itemMovePlaceholder.hide();
                                                         }
                                                 }).addEvent('mouseout', function() {
                                                         if (!we.inEditMode) {

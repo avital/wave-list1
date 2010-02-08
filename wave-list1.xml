@@ -80,11 +80,18 @@
 			    visibility: hidden;
 			  }
 
+			  .move {
+			    padding-left: 1px;
+			    padding-right: 1px;
+			    background-color: #de1243;
+			  }
+
 			</style>
                         
                         <table class="items-and-new">
                           <colgroup>
                             <col width="1px"></col>
+			    <col width="1px"></col>
 			    <col width="1px"></col>
                             <col></col>
                           </colgroup>
@@ -100,6 +107,10 @@
 
 			    <td id="edit-proto">
 			      <button>Edit</span>
+			    </td>
+                            
+			    <td id="move-proto">
+			      <div class="move">Move</div>
 			    </td>
                             
                             <td>
