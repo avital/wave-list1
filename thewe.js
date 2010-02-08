@@ -380,21 +380,25 @@ var we = {
                                                         }
                                                 });
 
-                                                item.addEvent('mouseover', function() {
-                                                        itemRemoveButton.show();
-                                                        itemRemovePlaceholder.hide();
+                                                var hideButtons = function() {
+                                                        itemRemoveButton.hide();
+                                                        itemRemovePlaceholder.show();
 
+                                                        itemEditButton.hide();
+                                                        itemEditPlaceholder.show();
+                                                };
+
+                                                item.addEvent('mouseover', function() {
                                                         if (!we.inEditMode) {
+                                                                itemRemoveButton.show();
+                                                                itemRemovePlaceholder.hide();
+
                                                                 itemEditButton.show();
                                                                 itemEditPlaceholder.hide();
                                                         }
                                                 }).addEvent('mouseout', function() {
-                                                        itemRemoveButton.hide();
-                                                        itemRemovePlaceholder.show();
-
                                                         if (!we.inEditMode) {
-                                                                itemEditButton.hide();
-                                                                itemEditPlaceholder.show();
+                                                                hideButtons();
                                                         }
                                                 });
 
@@ -407,6 +411,7 @@ var we = {
 
                                                 itemEditButton.addEvent('click', function() {
                                                         we.inEditMode = true;
+                                                        hidefButtons();
 
                                                         itemTextEdit.set('value', itemText.get('text'));
                                                         itemTextEdit.setStyle('display', 'block');
