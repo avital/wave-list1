@@ -367,6 +367,7 @@ var we = {
                                                                 we.state.set([id, 'val'], itemTextEdit.get('value'));
                                                                 itemTextEdit.setStyle('display', 'none');
                                                                 itemText.setStyle('display', '');
+                                                                we.inEditMode = false;
                                                         }
                                                 });
 
@@ -374,14 +375,18 @@ var we = {
                                                         itemRemoveButton.show();
                                                         itemRemovePlaceholder.hide();
 
-                                                        itemEditButton.show();
-                                                        itemEditPlaceholder.hide();
+                                                        if (!we.inEditMode) {
+                                                                itemEditButton.show();
+                                                                itemEditPlaceholder.hide();
+                                                        }
                                                 }).addEvent('mouseout', function() {
                                                         itemRemoveButton.hide();
                                                         itemRemovePlaceholder.show();
 
-                                                        itemEditButton.hide();
-                                                        itemEditPlaceholder.show();
+                                                        if (!we.inEditMode) {
+                                                                itemEditButton.hide();
+                                                                itemEditPlaceholder.show();
+                                                        }
                                                 });
 
                                                 itemRemoveButton.addEvent('click', function() {
@@ -392,6 +397,8 @@ var we = {
                                                 });
 
                                                 itemEditButton.addEvent('click', function() {
+                                                        we.inEditMode = true;
+
                                                         itemTextEdit.set('value', itemText.get('text'));
                                                         itemTextEdit.setStyle('display', 'block');
                                                         itemText.setStyle('display', 'none');
