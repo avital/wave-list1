@@ -395,8 +395,7 @@ var we = {
                                                         itemTextEdit.set('value', itemText.get('text'));
                                                         itemTextEdit.setStyle('display', 'block');
                                                         itemText.setStyle('display', 'none');
-
-
+                                                        itemTextEdit.focus();
                                                 });
 
                                                 item.inject($('items-unpositioned'));
