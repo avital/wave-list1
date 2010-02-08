@@ -126,18 +126,18 @@ Array.implement({
 });
 
 Element.implement({
-        $$: Element.getElements,
-
         $we: function(weid) {
                 return this.getElement('[weid=' + weid + ']');
         },
 
 	hide: function() {
-	        this.setStyle('display', 'none');
+	        this.setStyle('visibility', 'hidden');
+                return this;
 	},
 
 	show: function() {
-	        this.setStyle('display', '');
+	        this.setStyle('visibility', '');
+                return this;
 	}
 });
 
@@ -289,122 +289,111 @@ var we = {
                         return result;
                 },
 
-
-##########################3
-
-	        ////////////////////////////
-	        // Elastic List Functions //
-	        ////////////////////////////
-	        asArray: function() {
-	                var self = this;
-
-                        return self.getKeys().filter($begins('~')).sort(function(a, b) {
-		                return parseInt(self[a]._position) > parseInt(self[b]._position) ? 1 : -1;
-		        }).map(function(key) {
-                                return self[key].data;
-		        });
-	        },
-
-	        each: function(f) {
-	                this.asArray().each(f);
-	        },
-
-                remove: function(item) {
-                        this.unset(item.id);
+                newId: function() {
+                        return '' + $random(0, 1000000000); // $fix
                 },
 
-	        insertAtPosition: function(pos, obj) {
+                insertAtPosition: function(pos, val) {
+                        var self = this;
+                        var id = self.newId();
+
                         we.runTransaction(function() {
-                                var listItem = new we.Object();
-                                listItem.set('position', '' + pos);
-                                listItem.set('data', obj);
+                                self.set([id, 'pos'], pos);
+                                self.set([id, 'val'], val);
                         });
 	        },
 
-	        append: function(obj) {
+	        append: function(val) {
                         var self = this;
 
                         we.runTransaction(function() {
-	                        obj = obj || new we.Object();
-
-	                        var newPosition = between(self.getKeys().map(function(key) {
-                                        return parseInt(self[key]._position)
+	                        var newPosition = between(self.getKeys().filter(function(key) {
+                                        return key[1] == 'pos';
+                                }).map(function(key) {
+                                        return parseInt(self.get(key));
                                 }).max(), 100000000000);
 
 	                        self.insertAtPosition(newPosition, val);
                         });
-
-                        return obj;
 	        }
         }),
 
-        objects: {
-                // internals
-                _: {},
-
-                get: function(id) {
-                        if (!this._[id])
-                                this._[id] = new we.Object(id);
-
-                        return this._[id];
-                }
-        },
-
         applyStateDelta: function(delta) {
-                var changedObjIds = [];
+                Hash.each(delta, function(val, rawKey) {
+                        var key = rawKey.split('.');
+                        var oldVal = we.state[rawKey];
 
-                Hash.each(delta, function(val, key) {
-                        var tokens = key.split('.');
+                        if (val) {
+                                we.state[rawKey] = val;
 
-                        if (tokens.length >= 3) { // this is a real key
-                                var type = tokens[0];
-                                var objId = tokens[1];
-                                var obj = we.objects.get(objId);
-                                var keyInObj = tokens[2];
+                                if (oldVal) {
+                                        // modified
 
-                                changedObjIds.include(objId);
+                                        var id = key[0];
+                                        var type = key[1];
 
-                                if (type == 'obj') {
-                                        if (val !== null)
-                                                obj[keyInObj] = val;
-                                        else
-                                                delete obj[keyInObj];
+                                        if (type == 'pos') {
+                                                $(id).inject(itemAfter(val), 'before');
+                                        }
+                                        else if (type == 'val') {
+                                                $(id + '-text').set('text', val);
+                                        }
                                 }
-                                else if (type == 'link') {
-                                        var targetObjId = tokens[3];
+                                else {
+                                        // added
 
-                                        if (val !== null)
-                                                obj.__registerLinkTo(keyInObj, targetObjId);
-                                        else
-                                                obj.__unregisterLinkTo(keyInObj, targetObjId);
+                                        var id = key[0];
+                                        var type = key[1];
+                                        
+                                        if (!$(id)) {
+                                                var pos = val;
+
+                                                var item = new Element('tr', {'class': 'item', id: id}).setStyle('display', 'none');
+                                                var itemRemove = $('remove-proto').clone().inject(item);
+                                                var itemRemoveButton = itemRemove.getElements('button').hide();
+                                                var itemRemovePlaceholder = new Element('span').inject(item).inject(itemRemove);
+                                                var itemTextCell = new Element('td').inject(item);
+                                                var itemText = new Element('span', {'class': 'item-text', id: id + '-text'}).inject(itemTextCell);
+                                                
+                                                item.addEvent('mouseover', function() {
+                                                        itemRemoveButton.show();
+                                                        itemRemovePlaceholder.hide();
+                                                }).addEvent('mouseout', function() {
+                                                        itemRemoveButton.hide();
+                                                        itemRemovePlaceholder.show();
+                                                });
+
+                                                itemRemoveButton.addEvent('click', function() {
+                                                       we.runTransaction(function() {
+                                                               we.state.unset([id, 'pos']);
+                                                               we.state.unset([id, 'val']);
+                                                       });
+                                                });
+
+                                                item.inject($('items-unpositioned'));
+                                        }
+
+                                        if (type == 'pos') {
+                                                $(id).inject(itemAfter(pos), 'before');
+                                        }
+                                        else if (type == 'val') {
+                                                $(id + '-text').set('text', val);
+                                                $(id).setStyle('display', '');
+                                        }
+
                                 }
                         }
+                        else {
+                                // removed
+
+                                delete we.state[rawKey];
+
+                                var id = key[0];
+
+                                if ($(id))
+                                        $(id).dispose();
+                        }
                 });
-
-                return changedObjIds.map(function(objId) {
-                        return we.objects.get(objId);
-                });
-        }.log(),
-
-        mixinFuncs: {},
-        ctx: {},
-
-        renderView: function(__view, __el) {
-                __view._el = __el;
-
-                var __oldWeView = we.view;
-                we.view = __view;
-
-                __view.each(function(__mixin) {
-	                if (__mixin.code) {
-                                if (!we.mixinFuncs[__mixin.code])
-		                        eval('we.mixinFuncs[__mixin.code] = function() {' + __mixin.code + '};');
-
-                                we.mixinFuncs[__mixin.code]();
-	                }
-	        });
-
-                we.view = __oldWeView;
         },
 
         rootSet: function(key, val) {
@@ -414,18 +403,12 @@ var we = {
         }
 };
 
+we.state = new we.State();
+
 
 /////////////////////////
 // Google Wave Interop //
 /////////////////////////
-
-function weModeChanged() {
-        if (typeof modeChanged != 'undefined') {
-	        modeChanged.run(we.lastMode, wave.getMode());
-	        we.lastMode = wave.getMode();
-	        gadgets.window.adjustHeight();
-        }
-}
 
 msg = null;
 debug = false;
@@ -441,31 +424,25 @@ function debugState() {
 	}
 }
 
+function itemAfter(pos) {
+        var result = $('items-end');
+        var posInt = parseInt(pos);
+
+        $$('item').each(function(el) {
+                if (parseInt(we.state.get([el.id, 'pos'])) > posInt)
+                        result = el;
+        });
+
+        return result;
+}
+
 function weStateUpdated() {
         var startTime = $time();
 
         if ((waveState = wave.getState())) {
 	        var oldRawState = we.rawState;
                 we.rawState = $H(waveState.state_).getClean();
-                var changedObjs = we.applyStateDelta(stateDelta(oldRawState, we.rawState));
-                var objIdsToRender = [];
-
-                changedObjs.each(function ensureObjectRenders(obj) {
-                        if (we.renderTable[obj.id]) {
-                                objIdsToRender.include(obj.id);
-                        }
-                        else {
-                                obj._.linksToMe.each(function(obj) {
-                                        ensureObjectRenders(obj);
-                                });
-                        }
-                });
-
-                objIdsToRender.each(function(objId) {
-                        we.renderView(we.objects.get(objId), we.renderTable[objId]);
-                });
-
-                // whats the deal with modeChanged
+                we.applyStateDelta(stateDelta(oldRawState, we.rawState));
         }
 
         console.log('Render time: ' + ($time() - startTime) + 'ms');
@@ -475,6 +452,16 @@ function weStateUpdated() {
 
 function main() {
         if (wave && wave.isInWaveContainer()) {
+                $('new').addEvent('keypress', function(event) {
+                        if (event.key == 'enter') {
+                                var val = $('new').get('value');
+                                if (val != '') {
+                                        we.state.append(val);
+                                        $('new').set('value', '');
+                                }
+                        }
+                });
+
                 window.addEvent('keypress', function(event) {
                         if (event.alt && event.control) {
 	                        var key = String.fromCharCode(event.event.charCode);
@@ -608,11 +595,6 @@ function main() {
                         }
                 });
 
-                we.renderTable = {
-                        root: $('content')
-                };
-
-                wave.setModeCallback(weModeChanged);
                 wave.setStateCallback(weStateUpdated);
         }
 };
