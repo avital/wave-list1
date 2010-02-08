@@ -70,7 +70,7 @@ function between(x, y) {
 	        x = 0;
 
         return $random(parseInt(x), parseInt(y));
-};
+}
 
 $extend(JSON, {stringify: JSON.encode, parse: JSON.decode});
 
@@ -500,7 +500,7 @@ function itemAfter(pos) {
         var result = $('items-end');
         var posInt = parseInt(pos);
 
-        $$('item').each(function(el) {
+        $$('.item').each(function(el) {
                 if (parseInt(we.state.get([el.id, 'pos'])) > posInt)
                         result = el;
         });
