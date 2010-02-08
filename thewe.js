@@ -359,8 +359,8 @@ var we = {
                                                 var itemEditPlaceholder = new Element('span').inject(itemEdit);
 
                                                 var itemMove = $('move-proto').clone().inject(item);
-                                                var itemMoveButton = itemEdit.getElements('.move').hide();
-                                                var itemMovePlaceholder = new Element('span').inject(itemEdit);
+                                                var itemMoveButton = itemMove.getElements('.move').hide();
+                                                var itemMovePlaceholder = new Element('span').inject(itemMove);
 
                                                 var itemTextCell = new Element('td').inject(item);
                                                 var itemText = new Element('span', {'class': 'item-text', id: id + '-text'}).inject(itemTextCell);
