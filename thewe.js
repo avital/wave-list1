@@ -365,7 +365,7 @@ var we = {
                                                 itemTextEdit.addEvent('keypress', function(event) {
                                                         if (event.key == 'enter') {
                                                                 we.state.set([id, 'val'], itemTextEdit.get('value'));
-                                                                itemTextEdit.setStyle('display', '');
+                                                                itemTextEdit.setStyle('display', 'block');
                                                                 itemText.setStyle('display', 'none');
                                                         }
                                                 });
