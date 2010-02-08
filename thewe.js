@@ -362,12 +362,21 @@ var we = {
                                                 var itemText = new Element('span', {'class': 'item-text', id: id + '-text'}).inject(itemTextCell);
                                                 var itemTextEdit = new Element('input', {'class': 'edit'}).inject(itemTextCell);
 
+                                                itemTextEdit.addEvent('click', function() {
+                                                        return false;
+                                                });
+
+                                                var saveItem = function() {
+                                                        we.state.set([id, 'val'], itemTextEdit.get('value'));
+                                                        itemTextEdit.setStyle('display', 'none');
+                                                        itemText.setStyle('display', '');
+                                                        we.inEditMode = false;
+                                                        $(document.body).removeEvent('click', we.globalClickEvent);
+                                                };
+
                                                 itemTextEdit.addEvent('keypress', function(event) {
                                                         if (event.key == 'enter') {
-                                                                we.state.set([id, 'val'], itemTextEdit.get('value'));
-                                                                itemTextEdit.setStyle('display', 'none');
-                                                                itemText.setStyle('display', '');
-                                                                we.inEditMode = false;
+                                                                saveItem();
                                                         }
                                                 });
 
@@ -403,6 +412,12 @@ var we = {
                                                         itemTextEdit.setStyle('display', 'block');
                                                         itemText.setStyle('display', 'none');
                                                         itemTextEdit.focus();
+
+                                                        we.globalClickEvent = function() {
+                                                                saveItem();
+                                                        };
+
+                                                        $(document.body).addEvent('click', we.globalClickEvent);
                                                 });
 
                                                 item.inject($('items-unpositioned'));
