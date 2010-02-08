@@ -409,7 +409,7 @@ var we = {
                                                        });
                                                 });
 
-                                                itemEditButton.addEvent('click', function() {
+                                                var editItem = function() {
                                                         we.inEditMode = true;
                                                         hideButtons();
 
@@ -424,7 +424,10 @@ var we = {
 
                                                         $(document.body).addEvent('click', we.globalClickEvent);
                                                         return false;
-                                                });
+                                                };
+
+                                                itemEditButton.addEvent('click', editItem);
+                                                itemText.addEvent('dblclick', editItem);
 
                                                 item.inject($('items-unpositioned'));
                                         }
