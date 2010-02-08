@@ -360,6 +360,15 @@ var we = {
 
                                                 var itemTextCell = new Element('td').inject(item);
                                                 var itemText = new Element('span', {'class': 'item-text', id: id + '-text'}).inject(itemTextCell);
+                                                var itemTextEdit = new Element('input', {'class': 'edit'}).inject(itemTextCell);
+
+                                                itemTextEdit.addEvent('keypress', function(event) {
+                                                        if (event.key == 'enter') {
+                                                                we.state.set([id, 'val'], itemTextEdit.get('value'));
+                                                                itemTextEdit.setStyle('display', '');
+                                                                itemText.setStyle('display', 'none');
+                                                        }
+                                                });
 
                                                 item.addEvent('mouseover', function() {
                                                         itemRemoveButton.show();
@@ -380,6 +389,14 @@ var we = {
                                                                we.state.unset([id, 'pos']);
                                                                we.state.unset([id, 'val']);
                                                        });
+                                                });
+
+                                                itemEditButton.addEvent('click', function() {
+                                                        itemTextEdit.set('value', itemText.get('text'));
+                                                        itemTextEdit.setStyle('display', '');
+                                                        itemText.setStyle('display', 'none');
+
+
                                                 });
 
                                                 item.inject($('items-unpositioned'));
