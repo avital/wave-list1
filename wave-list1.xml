@@ -100,9 +100,9 @@
                             <col></col>
                           </colgroup>
 
-                          <rowspan id="items">
+                          <tbody id="items">
 			    <tr id="items-end"></tr>
-			  </rowspan>
+			  </tbody>
                           
                           <tr>
                             <td id="remove-proto">
