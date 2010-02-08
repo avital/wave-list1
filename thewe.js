@@ -352,11 +352,11 @@ var we = {
 
                                                 var itemRemove = $('remove-proto').clone().inject(item);
                                                 var itemRemoveButton = itemRemove.getElements('button').hide();
-                                                var itemRemovePlaceholder = new Element('span').inject(item).inject(itemRemove);
+                                                var itemRemovePlaceholder = new Element('span').inject(itemRemove);
 
                                                 var itemEdit = $('edit-proto').clone().inject(item);
-                                                var itemEditButton = itemEdit.getElements('.edit').hide();
-                                                var itemEditPlaceholder = new Element('span').inject(item).inject(itemEdit);
+                                                var itemEditButton = itemEdit.getElements('button').hide();
+                                                var itemEditPlaceholder = new Element('span').inject(itemEdit);
 
                                                 var itemTextCell = new Element('td').inject(item);
                                                 var itemText = new Element('span', {'class': 'item-text', id: id + '-text'}).inject(itemTextCell);

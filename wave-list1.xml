@@ -67,15 +67,10 @@
                           
                           #remove-proto button {
                             margin-right: 3px;
-                            visibility: hidden;
                           }
                           
-			  .edit {
-			    padding-left: 2px;
-			    padding-right: 3px;
-			    background-color: red;
+			  #edit-proto button {
 			    margin-right: 3px;
-			    border-width: 1px solid black;
 			  }
 
 			</style>
@@ -97,7 +92,7 @@
                             </td>
 
 			    <td id="edit-proto">
-			      <span class="edit">Edit</span>
+			      <button>Edit</span>
 			    </td>
                             
                             <td>
