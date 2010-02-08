@@ -366,6 +366,8 @@ var we = {
                                                 var itemText = new Element('span', {'class': 'item-text', id: id + '-text'}).inject(itemTextCell);
                                                 var itemTextEdit = new Element('input', {'class': 'edit'}).inject(itemTextCell);
 
+                                                sortables.addItems(item);
+
                                                 itemTextEdit.addEvent('click', function() {
                                                         return false;
                                                 });
@@ -456,11 +458,12 @@ var we = {
                                 // removed
 
                                 delete we.state[rawKey];
-
                                 var id = key[0];
 
-                                if ($(id))
+                                if ($(id)) {
+                                        sortables.removeItems($(id));
                                         $(id).dispose();
+                                }
                         }
                 });
         },
@@ -521,12 +524,10 @@ function weStateUpdated() {
 
 function main() {
         if (wave && wave.isInWaveContainer()) {
-/*
-                new Sortables($('items-and-new'), {
+                sortables = new Sortables($('items-and-new'), {
                         handle: '.move'
                 });
-*/
-                
+
                 $('new').addEvent('keypress', function(event) {
                         if (event.key == 'enter') {
                                 var val = $('new').get('value');
