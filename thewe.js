@@ -393,7 +393,7 @@ var we = {
 
                                                 itemEditButton.addEvent('click', function() {
                                                         itemTextEdit.set('value', itemText.get('text'));
-                                                        itemTextEdit.setStyle('display', '');
+                                                        itemTextEdit.setStyle('display', 'block');
                                                         itemText.setStyle('display', 'none');
 
 
