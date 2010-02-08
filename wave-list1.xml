@@ -99,10 +99,10 @@
 			    <col width="1px"></col>
                             <col></col>
                           </colgroup>
-                          
 
-                          <tr id="items-end"></tr>
-
+                          <rowspan id="items">
+			    <tr id="items-end"></tr>
+			  </rowspan>
                           
                           <tr>
                             <td id="remove-proto">

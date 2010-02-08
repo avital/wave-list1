@@ -524,7 +524,7 @@ function weStateUpdated() {
 
 function main() {
         if (wave && wave.isInWaveContainer()) {
-                sortables = new Sortables($('items-and-new'), {
+                sortables = new Sortables($('items'), {
                         handle: '.move'
                 });
 
