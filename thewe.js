@@ -418,6 +418,7 @@ var we = {
                                                         };
 
                                                         $(document.body).addEvent('click', we.globalClickEvent);
+                                                        return false;
                                                 });
 
                                                 item.inject($('items-unpositioned'));
