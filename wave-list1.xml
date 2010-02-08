@@ -70,11 +70,18 @@
                             visibility: hidden;
                           }
                           
+			  .edit {
+			    padding-left: 2px;
+			    padding-right: 3px;
+			    background-color: red;
+			  }
+
 			</style>
                         
                         <table class="items-and-new">
                           <colgroup>
-                            <col width="2px"></col>
+                            <col width="1px"></col>
+			    <col width="1px"></col>
                             <col></col>
                           </colgroup>
                           
@@ -86,6 +93,10 @@
                             <td id="remove-proto">
                               <button>x</button>
                             </td>
+
+			    <td id="edit-proto">
+			      <span class="edit">Edit</span>
+			    </td>
                             
                             <td>
                               <input id="new"></input>

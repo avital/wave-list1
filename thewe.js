@@ -344,23 +344,34 @@ var we = {
 
                                         var id = key[0];
                                         var type = key[1];
-                                        
+
                                         if (!$(id)) {
                                                 var pos = val;
 
                                                 var item = new Element('tr', {'class': 'item', id: id}).setStyle('display', 'none');
                                                 var itemRemove = $('remove-proto').clone().inject(item);
+
                                                 var itemRemoveButton = itemRemove.getElements('button').hide();
                                                 var itemRemovePlaceholder = new Element('span').inject(item).inject(itemRemove);
+
+                                                var itemEdit = $('edit-proto').clone().inject(item);
+                                                var itemEditPlaceholder = new Element('span').inject(item).inject(itemEdit);
+
                                                 var itemTextCell = new Element('td').inject(item);
                                                 var itemText = new Element('span', {'class': 'item-text', id: id + '-text'}).inject(itemTextCell);
-                                                
+
                                                 item.addEvent('mouseover', function() {
                                                         itemRemoveButton.show();
                                                         itemRemovePlaceholder.hide();
+
+                                                        itemEdit.show();
+                                                        itemEditPlaceholder.hide();
                                                 }).addEvent('mouseout', function() {
                                                         itemRemoveButton.hide();
                                                         itemRemovePlaceholder.show();
+
+                                                        itemEdit.hide();
+                                                        itemEditPlaceholder.show();
                                                 });
 
                                                 itemRemoveButton.addEvent('click', function() {
