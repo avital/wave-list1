@@ -311,7 +311,7 @@ var we = {
                                         return key[1] == 'pos';
                                 }).map(function(key) {
                                         return parseInt(self.get(key));
-                                }).max(), 100000000000);
+                                }).max(), 1000000000000);
 
 	                        self.insertAtPosition(newPosition, val);
                         });
@@ -525,7 +525,17 @@ function weStateUpdated() {
 function main() {
         if (wave && wave.isInWaveContainer()) {
                 sortables = new Sortables($('items'), {
-                        handle: '.move'
+                        handle: '.move',
+                        onComplete: function(el) {
+                                var prev = el.getPrevious();
+                                var next = el.getNext();
+
+                                var lowerBound = prev ? we.state.get([prev.id, 'pos']) : 0;
+                                var upperBound = (next.id != 'items-end') ? we.state.get([next.id, 'pos']) : 1000000000000;
+                                var newPos = between(lowerBound, upperBound);
+
+                                we.state.set([el.id, 'pos'], newPos);
+                        }
                 });
 
                 $('new').addEvent('keypress', function(event) {
