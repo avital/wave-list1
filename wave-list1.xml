@@ -1,0 +1,102 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Module>
+	<ModulePrefs
+	title="Concurrently Perfect List"
+	height="50"
+	description="Concurrently Perfect List"
+	author="Avital Oliver"
+	author_email="avital@thewe.net">
+		<Require feature="rpc"/>
+		<Require feature="wave-preview"/>
+		<Require feature="dynamic-height"/>
+		<Require feature="minimessage" />
+	</ModulePrefs>
+
+	<Content type="html">
+		<![CDATA[
+			<script type="text/javascript" src="http://wave-api.appspot.com/public/wave.js"></script>
+			<script type="text/javascript" src="http://wave.thewe.net/gadgets/thewe-ggg/mootools-1.2.4-core-nc.js"></script>
+			<script type="text/javascript" src="http://wave.thewe.net/gadgets/thewe-ggg/mootools-1.2.4.2-more.js"></script>
+			<script type="text/javascript" src="http://wave.thewe.net/gadgets/thewe-ggg/beautify.js"></script>
+                        <script type="text/javascript" src="http://work.thewe.net/avital/wave-list1/thewe.js"></script>
+                        
+			<style type="text/css">
+			  /* reset.css */
+			  html, body, div, span, object, iframe, h1, h2, h3, h4, h5, h6, p, 
+			  blockquote, pre, a, abbr, acronym, address, code, del, dfn, em, img, q, 
+			  dl, dt, dd, ol, ul, li, fieldset, form, label, legend, table, caption, 
+			  tbody, tfoot, thead, tr, th, td 
+			  {margin:0;padding:0;border:0;font-weight:inherit;font-style:inherit;font-size:100%;font-family:inherit;vertical-align:baseline;}
+			  body {line-height:1.5;}
+			  table {border-collapse:separate;border-spacing:0;}
+			  caption, th, td {text-align:left;font-weight:normal;}
+			  table, td, th {vertical-align:middle;}
+			  blockquote:before, blockquote:after, q:before, q:after {content:"";}
+			  blockquote, q {quotes:"" "";}
+			  a img {border:none;}
+
+			  body {
+			    font-family: arial, sans-serif;
+			    font-size: small;
+			    line-height: 1.35;
+			  }
+
+			  #sandbox {
+			    display: none;
+			  }
+                          
+                          .remove {
+                          }
+                          
+                          .items-and-new {
+                            width: 99%;
+                            padding-right: 3px;
+                          }
+                          
+                          #items-unpositioned {
+                            display: none;
+                          }
+                          
+                          #new-cell {
+                            display: table-cell
+                          }
+                          
+                          #new {
+                            width: 100%;
+                          }
+                          
+                          #remove-proto button {
+                            margin-right: 3px;
+                            visibility: hidden;
+                          }
+                          
+			</style>
+                        
+                        <table class="items-and-new">
+                          <colgroup>
+                            <col width="2px"></col>
+                            <col></col>
+                          </colgroup>
+                          
+
+                          <tr id="items-end"></tr>
+
+                          
+                          <tr>
+                            <td id="remove-proto">
+                              <button>x</button>
+                            </td>
+                            
+                            <td>
+                              <input id="new"></input>
+                            </td>
+                          </tr>
+                        </table>
+                        
+                        <span id="items-unpositioned"></span>
+                        
+			<span id="sandbox"></span>
+			<div id="messageBox" width="50px"></div>
+		]]>
+	</Content>
+</Module>
