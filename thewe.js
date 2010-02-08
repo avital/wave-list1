@@ -521,10 +521,12 @@ function weStateUpdated() {
 
 function main() {
         if (wave && wave.isInWaveContainer()) {
+/*
                 new Sortables($('items-and-new'), {
                         handle: '.move'
                 });
-
+*/
+                
                 $('new').addEvent('keypress', function(event) {
                         if (event.key == 'enter') {
                                 var val = $('new').get('value');
