@@ -497,15 +497,15 @@ function debugState() {
 }
 
 function itemAfter(pos) {
-        var result = $('items-end');
+        var result = null;
         var posInt = parseInt(pos);
 
         $$('.item').each(function(el) {
-                if (parseInt(we.state.get([el.id, 'pos'])) > posInt)
+                if (!result && parseInt(we.state.get([el.id, 'pos'])) > posInt)
                         result = el;
         });
 
-        return result;
+        return result || $('items-end');
 }
 
 function weStateUpdated() {
