@@ -74,7 +74,6 @@
 			    padding-left: 2px;
 			    padding-right: 3px;
 			    background-color: red;
-			    visibility: hidden;
 			    margin-right: 3px;
 			    border-width: 1px solid black;
 			  }
