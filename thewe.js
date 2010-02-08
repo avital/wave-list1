@@ -411,7 +411,7 @@ var we = {
 
                                                 itemEditButton.addEvent('click', function() {
                                                         we.inEditMode = true;
-                                                        hidefButtons();
+                                                        hideButtons();
 
                                                         itemTextEdit.set('value', itemText.get('text'));
                                                         itemTextEdit.setStyle('display', 'block');
