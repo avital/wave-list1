@@ -161,9 +161,6 @@ var we = {
                         // Send to wave server (on next stateUpdated there will be an empty delta)
                         wave.getState().submitDelta(we.delta);
 
-                        console.log('Delta submitted');
-                        console.log(we.delta);
-
                         we.delta = {};
                 }
         },
