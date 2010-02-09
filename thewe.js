@@ -431,7 +431,7 @@ function itemAfter(pos) {
         var result = null;
 
         $$('.item').each(function(el) {
-                if (!result && (we.state.get([el.id, 'pos']) > pos)
+                if (!result && (we.state.get([el.id, 'pos']) > pos))
                         result = el;
         });
 
