@@ -526,6 +526,8 @@ function main() {
         if (wave && wave.isInWaveContainer()) {
                 sortables = new Sortables($('items'), {
                         handle: '.move',
+                        constrain: true,
+                        
                         onComplete: function(el) {
                                 var prev = el.getPrevious();
                                 var next = el.getNext();
@@ -547,140 +549,6 @@ function main() {
                                 }
                         }
                 });
-
-                window.addEvent('keypress', function(event) {
-                        if (event.alt && event.control) {
-	                        var key = String.fromCharCode(event.event.charCode);
-
-	                        if (key == 's') {
-				        console.log(js_beautify(JSON.stringify(we.objects.get('root').getClean()), {
-                                                indent_size: 4,
-                                                indent_char: ' ',
-                                                preserve_newlines: false
-                                        }));
-	                        }
-
-	                        if (key == 'o') {
-	                                wave.getState().submitValue(
-	                                        prompt("Key"),
-	                                        prompt("Value"));
-	                        }
-
-                                if (key == 'c') {
-                                        wave.getState().submitValue('from-key', 'root');
-                                        alert('Prototype chosen');
-                                }
-
-				if (key == 'e') {
-				        alert(eval(prompt("eval")));
-				}
-
-				if (key == 'b') {
-				        debug = !debug;
-				        debugState();
-				}
-
-                                if (key == 'j') {
-                                        wave.getState().submitValue('blip-rep-keys', (we.objects.get('root').asArray().map(function(x) {
-                                                return [x.id, 'code'].join(','); // $fix horrible .code $cursorPath
-                                        }).join()));
-                                }
-
-				if (key == 'm') {
-				        we.runTransaction(function() {
-				                var mixinName = prompt("Use an existing mixin? If so, what is its name?");
-
-                                                if (mixinName == undefined)
-                                                        return;
-
-                                                var root = we.objects.get('root');
-
-                                                var createNewMixinId = function() {
-                                                        return we.__objRawKey(root.append().id, 'code');
-                                                };
-
-                                                if (mixinName) {
-                                                        var filtered = root.asArray().filter(function(x) {return x._name == mixinName;});
-
-                                                        var fetchMixin = function(mixinId, mixinName) {
-                                                                we.rootSet('mixin-rep-key', JSON.stringify({
-                                                                        key: mixinId,
-                                                                        mixinName: mixinName
-                                                                }));
-                                                        };
-
-                                                        if (filtered.isEmpty()) {
-                                                                // Mixin with requested name doesn't exist - add it
-                                                                fetchMixin(createNewMixinId(), mixinName);
-                                                        }
-                                                        else {
-                                                                // Mixin found - replace it with new version
-                                                                var mixin = filtered.oneElement();
-                                                                fetchMixin(we.__objRawKey(mixin.id, 'code'), mixinName);
-                                                        }
-                                                } else {
-					                we.rootSet('blip-rep-keys', createNewMixinId());
-				                }
-                                        });
-				}
-
-                                if (key == 't') {
-                                        wave.getState().submitValue('to-key', '_');
-                                        alert('Choose origin by going to the right view and pressing Ctrl-Alt-R');
-                                }
-
-                                if (key == 'u') {
-                                        var theweJsPath = prompt('URL to thewe.js to use, or none for default');
-
-                                        if (theweJsPath)
-                                                Cookie.write('thewe-js-path', theweJsPath);
-                                        else
-                                                Cookie.dispose('thewe-js-path');
-                                }
-
-                                if (key == 'r') {
-                                        // $fix: make this work
-                                        var xkeys = prompt('Which mixins or mixin fragments? (comma-separated)');
-
-                                        var fromKeys = [];
-                                        xkeys.split(',').each(function(xkey) {
-                                                var cursor = we.objects.get('root');
-                                                var newCursor;
-                                                var cursorPath = '_mi.';
-                                                var newCursorPath;
-
-                                                xkey.split('.').each(function(x) {
-                                                        if (cursor[x]) {
-                                                                newCursor = cursor[x];
-                                                                newCursorPath = cursorPath + x + '.';
-                                                        }
-                                                        else {
-                                                                cursor.getKeys().each(function(candidate) {
-                                                                        if (cursor[candidate]._name == x) {
-                                                                                newCursor = cursor[candidate];
-                                                                                newCursorPath = cursorPath + candidate + '.';
-                                                                        }
-
-                                                                        // $fix: make good each() on we.State
-
-                                                                });
-                                                        }
-
-                                                        cursor = newCursor;
-                                                        cursorPath = newCursorPath;
-                                                });
-
-                                                fromKeys.push(cursorPath.allButLast());
-                                                // $fix: write good trim, rtrim, ltrim
-                                        });
-
-                                        var fromKey = fromKeys.join();
-                                        alert('from-key: ' + fromKey);
-                                        wave.getState().submitValue('from-key', fromKey);
-                                }
-                        }
-                });
-
                 wave.setStateCallback(weStateUpdated);
         }
 };
