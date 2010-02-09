@@ -93,8 +93,8 @@
 
 			  .handopen {
 			    cursor: url(hand-open.cur), -moz-grab;
-			    caursor: -moz-grab;
-			    caursor: grab;
+			    cursor: -moz-grab;
+			    cursor: grab;
 			  }
 
 			  .handclosed {
