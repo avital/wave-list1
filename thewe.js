@@ -249,11 +249,11 @@ var we = {
                         var self = this;
 
                         we.runTransaction(function() {
-	                        var newPosition = between(self.getKeys().filter(function(key) {
+	                        var newPosition = stringBetween(self.getKeys().filter(function(key) {
                                         return key[1] == 'pos';
                                 }).map(function(key) {
-                                        return parseInt(self.get(key));
-                                }).max(), 1000000000);
+                                        return self.get(key);
+                                }).max(), '1');
 
 	                        self.insertAtPosition(newPosition, val);
                         });
@@ -429,10 +429,9 @@ debug = false;
 
 function itemAfter(pos) {
         var result = null;
-        var posInt = parseInt(pos);
 
         $$('.item').each(function(el) {
-                if (!result && parseInt(we.state.get([el.id, 'pos'])) > posInt)
+                if (!result && (we.state.get([el.id, 'pos']) > pos)
                         result = el;
         });
 
@@ -462,9 +461,9 @@ function main() {
                                 var prev = el.getPrevious();
                                 var next = el.getNext();
 
-                                var lowerBound = prev ? we.state.get([prev.id, 'pos']) : 0;
-                                var upperBound = (next.id != 'items-end') ? we.state.get([next.id, 'pos']) : 1000000000;
-                                var newPos = between(lowerBound, upperBound);
+                                var lowerBound = prev ? we.state.get([prev.id, 'pos']) : '0';
+                                var upperBound = (next.id != 'items-end') ? we.state.get([next.id, 'pos']) : '1';
+                                var newPos = stringBetween(lowerBound, upperBound);
 
                                 we.state.set([el.id, 'pos'], newPos);
                         },
