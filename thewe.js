@@ -467,6 +467,7 @@ function main() {
 
                         onStart: function(el, clone) {
                                 clone.getElements('.move').addClass('handclosed');
+                                clone.getElements('button').hide();
                         }
                 });
 
