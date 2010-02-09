@@ -466,7 +466,7 @@ function weStateUpdated() {
 function main() {
         if (wave && wave.isInWaveContainer()) {
                 sortables = new Sortables($('items'), {
-//                        handle: '.move',
+                        handle: '.item-text',
                         constrain: true,
                         clone: true,
 
