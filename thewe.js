@@ -298,13 +298,13 @@ var we = {
                                                 var itemEdit = $('edit-proto').clone().inject(item);
                                                 var itemEditButton = itemEdit.getElements('button').hide();
                                                 var itemEditPlaceholder = new Element('span').inject(itemEdit);
-
+/*
                                                 var itemMove = $('move-proto').clone().inject(item);
                                                 var itemMoveButton = itemMove.getElements('.move').hide();
                                                 var itemMovePlaceholder = new Element('span').inject(itemMove);
-
+*/
                                                 var itemTextCell = new Element('td').inject(item);
-                                                var itemText = new Element('div', {'class': 'item-text', id: id + '-text'}).inject(itemTextCell);
+                                                var itemText = new Element('div', {'class': 'item-text handopen', id: id + '-text'}).inject(itemTextCell);
                                                 var itemTextEdit = new Element('input', {'class': 'edit'}).inject(itemTextCell);
 
                                                 sortables.addItems(item);
@@ -333,9 +333,10 @@ var we = {
 
                                                         itemEditButton.hide();
                                                         itemEditPlaceholder.show();
-
+/*
                                                         itemMoveButton.hide();
                                                         itemMovePlaceholder.show();
+*/
                                                 };
 
                                                 item.addEvent('mouseover', function() {
@@ -348,9 +349,10 @@ var we = {
 
                                                                 itemEditButton.show();
                                                                 itemEditPlaceholder.hide();
-
+/*
                                                                 itemMoveButton.show();
                                                                 itemMovePlaceholder.hide();
+*/
                                                         }
                                                 }).addEvent('mouseout', function() {
                                                         we.onItem = false;
@@ -481,7 +483,7 @@ function main() {
                         },
 
                         onStart: function(el, clone) {
-                                clone.getElements('.move').addClass('handclosed');
+                                clone.getElements('.item-text').addClass('handclosed');
                                 clone.getElements('button').hide();
                         }
                 });

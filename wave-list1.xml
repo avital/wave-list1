@@ -116,7 +116,7 @@
                           <colgroup>
                             <col width="1px"></col>
 			    <col width="1px"></col>
-			    <col width="1px"></col>
+<!--			    <col width="1px"></col> -->
                             <col></col>
                           </colgroup>
 
@@ -133,10 +133,12 @@
 			      <button class="edit-proto-button">Edit</span>
 			    </td>
                             
+<!--
 			    <td id="move-proto" class="move-proto">
 			      <div class="move handopen">Move</div>
 			    </td>
-                            
+    -->
+                        
                             <td>
                               <input id="new"></input>
                             </td>
