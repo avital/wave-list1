@@ -529,7 +529,7 @@ function main() {
                         constrain: true,
                         clone: true,
 
-                        onComplete: function(el) {
+                        onSort: function(el) {
                                 var prev = el.getPrevious();
                                 var next = el.getNext();
 
@@ -541,7 +541,7 @@ function main() {
                         },
 
                         onStart: function(el, clone) {
-                                clone.addClass('handclosed');
+                                clone.getElements('.move').addClass('handclosed');
                         }
                 });
 
