@@ -102,8 +102,11 @@
 			    cursor: -moz-grabbing;
 			  }
 
-			  .selected {
+			  .item-text {
 			    padding: 2px;
+			  }
+
+			  .selected {
 			    background-color: #eeeeee;
 			  }
 
