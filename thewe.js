@@ -239,11 +239,18 @@ var we = {
                         var self = this;
 
                         we.runTransaction(function() {
-	                        var newPosition = stringBetween([self.getKeys().filter(function(key) {
+                                var maxPos = '0';
+
+                                self.getKeys().filter(function(key) {
                                         return key[1] == 'pos';
                                 }).map(function(key) {
                                         return self.get(key);
-                                }).max(), '0'].max(), '1');
+                                }).each(function(pos) {
+                                        if (pos > maxPos)
+                                                maxPos = pos;
+                                });
+
+	                        var newPosition = stringBetween(maxPos, '1');
 
 	                        self.insertAtPosition(newPosition, val);
                         });
