@@ -140,6 +140,7 @@ function stateDelta(oldState, newState){
 
 var we = {
         delta: {},
+        laterDelta: {},
         transactionDepth: 0,
 
         __submitChanges: function() {
@@ -269,9 +270,14 @@ var we = {
                                         var id = key[0];
                                         var type = key[1];
 
-                                        if (type == 'pos' && !we.onItem) {
-                                                we.state[rawKey] = val;
-                                                $(id).inject(itemAfter(val), 'before');
+                                        if (type == 'pos') {
+                                                if (we.onItem) {
+                                                        we.laterDelta[rawKey] = val;
+                                                }
+                                                else {
+                                                        we.state[rawKey] = val;
+                                                        $(id).inject(itemAfter(val), 'before');
+                                                }
                                         }
                                         else if (type == 'val') {
                                                 we.state[rawKey] = val;
@@ -451,14 +457,18 @@ function itemAfter(pos) {
 function weStateUpdated() {
         var startTime = $time();
 
-        if (we.onItem)
+        if (we.onItem) {
                 we.newStateWaiting = true;
-        else
+        } else {
+                we.applyStateDelta(we.laterDelta);
+                we.laterDelta = {};
                 we.newStateWaiting = false;
-        
+        }
+
         if ((waveState = wave.getState())) {
 	        var oldRawState = we.rawState;
                 we.rawState = $H(waveState.state_).getClean();
+
                 we.applyStateDelta(stateDelta(oldRawState, we.rawState));
         }
 
