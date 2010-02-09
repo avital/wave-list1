@@ -239,7 +239,7 @@ var we = {
                         var self = this;
 
                         we.runTransaction(function() {
-	                        var newPosition = [stringBetween(self.getKeys().filter(function(key) {
+	                        var newPosition = stringBetween([self.getKeys().filter(function(key) {
                                         return key[1] == 'pos';
                                 }).map(function(key) {
                                         return self.get(key);
