@@ -337,6 +337,8 @@ var we = {
                                                 };
 
                                                 item.addEvent('mouseover', function() {
+                                                        we.onItem = true;
+
                                                         if (!we.inEditMode) {
                                                                 itemRemoveButton.show();
                                                                 itemRemovePlaceholder.hide();
@@ -348,6 +350,11 @@ var we = {
                                                                 itemMovePlaceholder.hide();
                                                         }
                                                 }).addEvent('mouseout', function() {
+                                                        we.onItem = false;
+
+                                                        if (we.newStateWaiting)
+                                                                weStateUpdated();
+
                                                         if (!we.inEditMode) {
                                                                 hideButtons();
                                                         }
@@ -438,10 +445,16 @@ function itemAfter(pos) {
 function weStateUpdated() {
         var startTime = $time();
 
+        if (!we.onItem) {
+                we.newStateWaiting = true;
+                return;
+        }
+
         if ((waveState = wave.getState())) {
 	        var oldRawState = we.rawState;
                 we.rawState = $H(waveState.state_).getClean();
                 we.applyStateDelta(stateDelta(oldRawState, we.rawState));
+                we.newStateWaiting = false;
         }
 
         gadgets.window.adjustHeight();
