@@ -538,6 +538,10 @@ function main() {
                                 var newPos = between(lowerBound, upperBound);
 
                                 we.state.set([el.id, 'pos'], newPos);
+                        },
+
+                        onStart: function(el, clone) {
+                                clone.addClass('handclosed');
                         }
                 });
 

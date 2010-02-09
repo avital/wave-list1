@@ -91,6 +91,18 @@
 			    margin-right: 3px;
 			  }
 
+			  .handopen {
+			    cursor: url(hand-open.cur), -moz-grab;
+			    caursor: -moz-grab;
+			    caursor: grab;
+			  }
+
+			  .handclosed {
+			    cursor: url(hand-closed.cur), auto;
+			    cursor: grabbing;
+			    cursor: -moz-grabbing;
+			  }
+
 			</style>
                         
                         <table class="items-and-new">
@@ -115,7 +127,7 @@
 			    </td>
                             
 			    <td id="move-proto" class="move-proto">
-			      <div class="move">Move</div>
+			      <div class="move handopen">Move</div>
 			    </td>
                             
                             <td>
