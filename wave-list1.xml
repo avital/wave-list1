@@ -70,17 +70,17 @@
 			    display: none;
 			  }
                           
-                          .remove-proto button {
+                          .remove-proto-button {
                             margin-right: 3px;
 			    visibility: hidden;
                           }
                           
-			  .edit-proto button {
+			  .edit-proto-button {
 			    margin-right: 3px;
 			    visibility: hidden;
 			  }
 
-			  .move-proto .move {
+			  .move {
 			    padding-top: 2px;
 			    padding-bottom: 2px;
 			    padding-left: 2px;
@@ -106,11 +106,11 @@
                           
                           <tr>
                             <td id="remove-proto" class="remove-proto">
-                              <button>x</button>
+                              <button class="remove-proto-button">x</button>
                             </td>
 
 			    <td id="edit-proto" class="edit-proto">
-			      <button>Edit</span>
+			      <button class="edit-proto-button">Edit</span>
 			    </td>
                             
 			    <td id="move-proto" class="move-proto">
