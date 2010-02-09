@@ -445,7 +445,7 @@ function itemAfter(pos) {
 function weStateUpdated() {
         var startTime = $time();
 
-        if (!we.onItem) {
+        if (we.onItem) {
                 we.newStateWaiting = true;
                 return;
         }
