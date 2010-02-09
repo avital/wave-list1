@@ -92,6 +92,7 @@
 			  }
 
 			  .handopen {
+			    cursor: pointer;
 			    cursor: url(hand-open.cur), -moz-grab;
 			    cursor: -moz-grab;
 			    cursor: grab;

@@ -1,65 +1,6 @@
-//////////////////////
-// Function Tracing //
-//////////////////////
-
-var __functionLogDepth = 0;
-var __SPACES = "                                                                                  ";
-var __LOGGING = true;
-
-var depthLog = function(obj) {
-        console.log(__SPACES.substring(0, __functionLogDepth * 2) + obj);
-};
-
-Function.implement({
-        niceString: function() {
-                if (!this._niceString)
-                        this._niceString = this.toString().substring(0, 120).replace(/\n/g, ' ');
-
-                return this._niceString;
-        },
-
-        log: function() {
-                if (__LOGGING) {
-                        var self = this;
-
-                        return function() {
-                                depthLog('Call: ' + self.niceString());
-                                console.log(self);
-
-                                depthLog('Args:');
-                                console.log(arguments);
-
-                                try {
-                                        __functionLogDepth++;
-                                        var result = self.apply(this, arguments);
-                                        __functionLogDepth--;
-                                        depthLog('Result:');
-                                        console.log(result);
-                                        return result;
-                                }
-                                catch (e) {
-                                        __functionLogDepth = 0;
-                                        throw e;
-                                }
-                        };
-                }
-                else {
-                        return this;
-                }
-        }
-});
-
-
 ////////////////////
 // JS Foundations //
 ////////////////////
-
-if (typeof console == 'undefined') {
-        console = {
-                log: function() {
-                }
-        };
-}
 
 shouldntHappen = function() {
         console.log("Shouldn't happen!");
@@ -72,6 +13,7 @@ function between(x, y) {
         return $random(parseInt(x), parseInt(y));
 }
 
+// Make MooTools' JSON object with in Wave
 $extend(JSON, {stringify: JSON.encode, parse: JSON.decode});
 
 function $not(f) {
@@ -485,17 +427,6 @@ we.state = new we.State();
 msg = null;
 debug = false;
 
-function debugState() {
-	if (debug) {
-	        if (!msg)  {
-		        msg = new gadgets.MiniMessage("http://wave.thewe.net/gadgets/thewe-ggg/thewe-ggg.xml", $('messageBox'));
-	        }
-
-	        // for debug
-	        msg.createDismissibleMessage(JSON.stringify(we.rawState));
-	}
-}
-
 function itemAfter(pos) {
         var result = null;
         var posInt = parseInt(pos);
@@ -517,8 +448,6 @@ function weStateUpdated() {
                 we.applyStateDelta(stateDelta(oldRawState, we.rawState));
         }
 
-        console.log('Render time: ' + ($time() - startTime) + 'ms');
-	debugState();
         gadgets.window.adjustHeight();
 }
 
@@ -554,6 +483,7 @@ function main() {
                                 }
                         }
                 });
+
                 wave.setStateCallback(weStateUpdated);
         }
 };
