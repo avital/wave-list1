@@ -527,8 +527,8 @@ function main() {
                 sortables = new Sortables($('items'), {
                         handle: '.move',
                         constrain: true,
-                        clone: true,
-                        
+                        clone: function() { return new Element('tr') },
+
                         onComplete: function(el) {
                                 var prev = el.getPrevious();
                                 var next = el.getNext();
