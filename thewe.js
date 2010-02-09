@@ -453,7 +453,9 @@ function weStateUpdated() {
 
         if (we.onItem)
                 we.newStateWaiting = true;
-
+        else
+                we.newStateWaiting = false;
+        
         if ((waveState = wave.getState())) {
 	        var oldRawState = we.rawState;
                 we.rawState = $H(waveState.state_).getClean();
