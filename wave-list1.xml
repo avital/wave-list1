@@ -69,15 +69,17 @@
 			    width: 100%;
 			    display: none;
 			  }
+
+			  #remove-proto .remove-proto-button, #edit-proto .edit-proto-button, #move-proto .move {
+			    visibility: hidden;
+			  }
                           
                           .remove-proto-button {
                             margin-right: 3px;
-			    visibility: hidden;
                           }
                           
 			  .edit-proto-button {
 			    margin-right: 3px;
-			    visibility: hidden;
 			  }
 
 			  .move {
@@ -86,7 +88,6 @@
 			    padding-left: 2px;
 			    padding-right: 2px;
 			    background-color: #de1243;
-			    visibility: hidden;
 			    margin-right: 3px;
 			  }
 
