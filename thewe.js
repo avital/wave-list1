@@ -340,6 +340,7 @@ var we = {
                                                         we.onItem = true;
 
                                                         if (!we.inEditMode) {
+                                                                itemText.addClass('selected');
                                                                 itemRemoveButton.show();
                                                                 itemRemovePlaceholder.hide();
 
@@ -356,6 +357,7 @@ var we = {
                                                                 weStateUpdated();
 
                                                         if (!we.inEditMode) {
+                                                                itemText.removeClass('selected');
                                                                 hideButtons();
                                                         }
                                                 });
@@ -463,7 +465,7 @@ function weStateUpdated() {
 function main() {
         if (wave && wave.isInWaveContainer()) {
                 sortables = new Sortables($('items'), {
-                        handle: '.move',
+//                        handle: '.move',
                         constrain: true,
                         clone: true,
 

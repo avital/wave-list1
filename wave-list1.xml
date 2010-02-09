@@ -102,6 +102,10 @@
 			    cursor: -moz-grabbing;
 			  }
 
+			  .selected {
+			    background-color: #333333;
+			  }
+
 			</style>
                         
                         <table class="items-and-new">
