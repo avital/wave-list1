@@ -458,7 +458,6 @@ function weStateUpdated() {
 	        var oldRawState = we.rawState;
                 we.rawState = $H(waveState.state_).getClean();
                 we.applyStateDelta(stateDelta(oldRawState, we.rawState));
-                we.newStateWaiting = false;
         }
 
         gadgets.window.adjustHeight();
