@@ -103,7 +103,8 @@
 			  }
 
 			  .selected {
-			    background-color: #333333;
+			    padding: 2px;
+			    background-color: #eeeeee;
 			  }
 
 			</style>
