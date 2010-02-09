@@ -263,23 +263,25 @@ var we = {
                         var oldVal = we.state[rawKey];
 
                         if (val) {
-                                we.state[rawKey] = val;
-
                                 if (oldVal) {
                                         // modified
 
                                         var id = key[0];
                                         var type = key[1];
 
-                                        if (type == 'pos') {
+                                        if (type == 'pos' && !we.onItem) {
+                                                we.state[rawKey] = val;
                                                 $(id).inject(itemAfter(val), 'before');
                                         }
                                         else if (type == 'val') {
+                                                we.state[rawKey] = val;
                                                 $(id + '-text').set('text', val);
                                         }
                                 }
                                 else {
                                         // added
+
+                                        we.state[rawKey] = val;
 
                                         var id = key[0];
                                         var type = key[1];
@@ -447,10 +449,8 @@ function itemAfter(pos) {
 function weStateUpdated() {
         var startTime = $time();
 
-        if (we.onItem) {
+        if (we.onItem)
                 we.newStateWaiting = true;
-                return;
-        }
 
         if ((waveState = wave.getState())) {
 	        var oldRawState = we.rawState;
