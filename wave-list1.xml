@@ -85,7 +85,7 @@
 			  }
 
 			  .move {
-			    -moz-border-radius: 3px; -webkit-border-radius: 3px; border: 1px solid #000; padding: 3px;
+			    -moz-border-radius: 3px; -webkit-border-radius: 3px; border: 1px solid #000; padding: 2px;
 			    background-color: #728379;
 			    margin-right: 3px;
 			  }
