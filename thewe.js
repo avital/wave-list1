@@ -415,12 +415,17 @@ var we = {
                         else {
                                 // removed
 
-                                delete we.state[rawKey];
-                                var id = key[0];
+                                if (we.onItem) {
+                                        we.laterDelta[rawKey] = val;
+                                }
+                                else {
+                                        delete we.state[rawKey];
+                                        var id = key[0];
 
-                                if ($(id)) {
-                                        sortables.removeItems($(id));
-                                        $(id).dispose();
+                                        if ($(id)) {
+                                                sortables.removeItems($(id));
+                                                $(id).dispose();
+                                        }
                                 }
                         }
                 });
