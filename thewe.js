@@ -302,7 +302,7 @@ var we = {
                                                 var itemMovePlaceholder = new Element('span').inject(itemMove);
 
                                                 var itemTextCell = new Element('td').inject(item);
-                                                var itemText = new Element('span', {'class': 'item-text', id: id + '-text'}).inject(itemTextCell);
+                                                var itemText = new Element('div', {'class': 'item-text', id: id + '-text'}).inject(itemTextCell);
                                                 var itemTextEdit = new Element('input', {'class': 'edit'}).inject(itemTextCell);
 
                                                 sortables.addItems(item);
