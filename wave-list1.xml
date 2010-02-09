@@ -92,14 +92,13 @@
 			  }
 
 			  .handopen {
-			    cursor: pointer;
-			    cursor: url(hand-open.cur), -moz-grab;
-			    cursor: -moz-grab;
-			    cursor: grab;
+			    cursor: url(http://work.thewe.net/avital/wave-list1/hand-open.cur), -moz-grab;
+			    caursor: -moz-grab;
+			    caursor: grab;
 			  }
 
 			  .handclosed {
-			    cursor: url(hand-closed.cur), auto;
+			    cursor: url(http://work.thewe.net/avital/wave-list1/hand-closed.cur), auto;
 			    cursor: grabbing;
 			    cursor: -moz-grabbing;
 			  }
