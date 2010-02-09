@@ -6,13 +6,6 @@ shouldntHappen = function() {
         console.log("Shouldn't happen!");
 };
 
-function between(x, y) {
-        if (x == -Infinity)
-	        x = 0;
-
-        return $random(parseInt(x), parseInt(y));
-}
-
 // Make MooTools' JSON object with in Wave
 $extend(JSON, {stringify: JSON.encode, parse: JSON.decode});
 
@@ -246,11 +239,11 @@ var we = {
                         var self = this;
 
                         we.runTransaction(function() {
-	                        var newPosition = stringBetween(self.getKeys().filter(function(key) {
+	                        var newPosition = [stringBetween(self.getKeys().filter(function(key) {
                                         return key[1] == 'pos';
                                 }).map(function(key) {
                                         return self.get(key);
-                                }).max(), '1');
+                                }).max(), '0'].max(), '1');
 
 	                        self.insertAtPosition(newPosition, val);
                         });
