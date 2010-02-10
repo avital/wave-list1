@@ -326,12 +326,22 @@ var we = {
                                                 });
 
                                                 var saveItem = function() {
-                                                        we.state.set([id, 'val'], itemTextEdit.get('value'));
-                                                        itemTextEdit.setStyle('display', 'none');
-                                                        itemText.setStyle('display', '');
-                                                        we.inEditMode = false;
-                                                        $(document.body).removeEvent('click', we.globalClickEvent);
-                                                        we.globalClickEvent = null;
+                                                        var newVal = itemTextEdit.get('value');
+
+                                                        if (newVal == '') {
+                                                                we.runTransaction(function() {
+                                                                        we.state.unset([id, 'pos']);
+                                                                        we.state.unset([id, 'val']);
+                                                                });
+                                                        }
+                                                        else {
+                                                                we.state.set([id, 'val'], newVal);
+                                                                itemTextEdit.setStyle('display', 'none');
+                                                                itemText.setStyle('display', '');
+                                                                we.inEditMode = false;
+                                                                $(document.body).removeEvent('click', we.globalClickEvent);
+                                                                we.globalClickEvent = null;
+                                                        }
                                                 };
 
                                                 itemTextEdit.addEvent('keypress', function(event) {
