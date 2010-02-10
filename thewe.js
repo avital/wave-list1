@@ -278,6 +278,7 @@ var we = {
                                                      ((oldVal >= we.state.get([we.onItem, 'pos'])) && (val < we.state.get([we.onItem, 'pos'])))) &&
                                                     !we.isLocalModification) {
                                                         we.laterDelta[rawKey] = val;
+                                                        showLaterDeltaNotify();
                                                 }
                                                 else {
                                                         we.state[rawKey] = val;
@@ -438,7 +439,9 @@ var we = {
                                 if ($(id)) {
                                         if (we.onItem && (we.state.get([id, 'pos']) <= we.state.get([we.onItem, 'pos'])) && !we.isLocalModification) {
                                                 $(id).retrieve('delete')();
+
                                                 we.laterDelta[rawKey] = val;
+                                                showLaterDeltaNotify();
                                         }
                                         else {
                                                 delete we.state[rawKey];
@@ -481,6 +484,18 @@ function itemAfter(pos) {
         return result || $('items-end');
 }
 
+function showLaterDeltaNotify() {
+        var notify = $('notify');
+        notify.setStyles({
+                right: '0px',
+                top: $(we.onItem).getPosition().y
+        }).show();
+}
+
+function hideLaterDeltaNofity() {
+        $('notify').hide();
+}
+
 function weStateUpdated() {
         var startTime = $time();
 
@@ -489,6 +504,7 @@ function weStateUpdated() {
         } else {
                 we.applyStateDelta(we.laterDelta);
                 we.laterDelta = {};
+                hideLaterDeltaNotify();
                 we.newStateWaiting = false;
         }
 

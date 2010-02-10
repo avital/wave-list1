@@ -115,8 +115,8 @@
 			  }
 
 			  .notify {
-			    position: absolute:
-			    right: 0px;
+			    position: fixed;
+			    visibility: hidden;
 			  }
 
 			</style>
@@ -126,7 +126,6 @@
                             <col width="1px"></col>
 			    <col width="1px"></col>
                             <col></col>
-			    <col width="1px"></col>
                           </colgroup>
 
                           <tbody id="items">
@@ -145,12 +144,10 @@
                             <td>
                               <input id="new"></input>
                             </td>
-
-			    <td class="notify">
-			      Notify
-			    </td>
                           </tr>
                         </table>
+
+			<div id="notify">Move cursor to see some updates</div>
 
                         <span id="items-unpositioned"></span>
                         
