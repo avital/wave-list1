@@ -496,10 +496,7 @@ function itemAfter(pos) {
 
 function showLaterDeltaNotify() {
         var notify = $('notify');
-        notify.setStyles({
-                right: '0px',
-                top: $(we.onItem).getPosition().y
-        }).fade('in');
+        notify.setStyle('top', $(we.onItem).getPosition().y).fade('in');
 }
 
 function hideLaterDeltaNotify() {
@@ -536,14 +533,16 @@ function main() {
                         clone: true,
 
                         onComplete: function(el) {
-                                var prev = el.getPrevious();
-                                var next = el.getNext();
+                                if (pos != we.state.get([el.id, 'pos'])) {
+                                        var prev = el.getPrevious();
+                                        var next = el.getNext();
 
-                                var lowerBound = prev ? we.state.get([prev.id, 'pos']) : '0';
-                                var upperBound = (next.id != 'items-end') ? we.state.get([next.id, 'pos']) : '1';
-                                var newPos = stringBetween(lowerBound, upperBound);
+                                        var lowerBound = prev ? we.state.get([prev.id, 'pos']) : '0';
+                                        var upperBound = (next.id != 'items-end') ? we.state.get([next.id, 'pos']) : '1';
+                                        var newPos = stringBetween(lowerBound, upperBound);
 
-                                we.state.set([el.id, 'pos'], newPos);
+                                        we.state.set([el.id, 'pos'], newPos);
+                                }
                         },
 
                         onStart: function(el, clone) {
