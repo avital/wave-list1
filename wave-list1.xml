@@ -115,7 +115,7 @@
 			  }
 
 			  #notify {
-			    position: fixed;
+			    position: absolute;
 			    visibility: hidden;
 			  }
 
