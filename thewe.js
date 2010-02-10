@@ -150,7 +150,9 @@ var we = {
                         Hash.removeNullValues(we.rawState);
 
                         // Apply to local we.objects
+                        we.isLocalModification = true;
                         we.applyStateDelta(we.delta);
+                        we.isLocalModification = false;
 
                         // Send to wave server (on next stateUpdated there will be an empty delta)
                         wave.getState().submitDelta(we.delta);
@@ -350,6 +352,7 @@ var we = {
                                                         itemText.removeEvent('dblclick', editItem);
                                                         item.removeEvent('mouseover', mouseover);
                                                         itemText.setStyle('text-decoration', 'line-through');
+                                                        itemText.setStyle('color', 'red');
                                                 });
 
                                                 var mouseover = function() {
@@ -382,10 +385,10 @@ var we = {
                                                 });
 
                                                 itemRemoveButton.addEvent('click', function() {
-                                                       we.runTransaction(function() {
-                                                               we.state.unset([id, 'pos']);
-                                                               we.state.unset([id, 'val']);
-                                                       });
+                                                        we.runTransaction(function() {
+                                                                we.state.unset([id, 'pos']);
+                                                                we.state.unset([id, 'val']);
+                                                        });
                                                 });
 
                                                 var editItem = function() {
@@ -424,7 +427,7 @@ var we = {
                         else {
                                 // removed
 
-                                if (we.onItem) {
+                                if (we.onItem && !we.isLocalModification) {
                                         var id = key[0];
                                         $(id).retrieve('delete')();
                                         we.laterDelta[rawKey] = val;
