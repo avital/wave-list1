@@ -330,6 +330,7 @@ var we = {
                                                         itemText.setStyle('display', '');
                                                         we.inEditMode = false;
                                                         $(document.body).removeEvent('click', we.globalClickEvent);
+                                                        we.globalClickEvent = null;
                                                 };
 
                                                 itemTextEdit.addEvent('keypress', function(event) {
@@ -517,6 +518,9 @@ function main() {
                         },
 
                         onStart: function(el, clone) {
+                                if (we.globalClickEvent)
+                                        we.globalClickEvent();
+
                                 clone.getElements('.item-text').addClass('handclosed');
                                 clone.getElements('button').hide();
                         }
