@@ -388,11 +388,11 @@ var we = {
                                                 };
 
                                                 var mouseleave = function() {
+                                                        if (we.newStateWaiting)
+                                                                weStateUpdated();
+
                                                         if (!we.inEditMode) {
                                                                 we.onItem = null;
-
-                                                                if (we.newStateWaiting)
-                                                                        weStateUpdated();
 
                                                                 itemText.removeClass('selected');
                                                                 hideButtons();
