@@ -49,6 +49,10 @@
                           
                           .remove {
                           }
+
+			  .item {
+			    position: relative;
+			  }
                           
                           .items-and-new {
                             width: 99%;
@@ -110,6 +114,11 @@
 			    background-color: #eeeeee;
 			  }
 
+			  .notify {
+			    position: absolute:
+			    right: 0px;
+			  }
+
 			</style>
                         
                         <table class="items-and-new">
@@ -135,11 +144,13 @@
                             <td>
                               <input id="new"></input>
                             </td>
+
+			    <td class="notify">
+			      Notify
+			    </td>
                           </tr>
                         </table>
 
-			<div style="position: fixed; top: 0px; left: 0px;">Hi</div>
-                        
                         <span id="items-unpositioned"></span>
                         
 			<span id="sandbox"></span>
