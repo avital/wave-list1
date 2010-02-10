@@ -424,6 +424,7 @@ var we = {
                                 // removed
 
                                 if (we.onItem) {
+                                        var id = key[0];
                                         $(id).retrieve('delete')();
                                         we.laterDelta[rawKey] = val;
                                 }
