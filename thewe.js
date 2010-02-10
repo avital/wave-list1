@@ -356,7 +356,7 @@ var we = {
                                                 });
 
                                                 var mouseover = function() {
-                                                        we.onItem = true;
+                                                        we.onItem = id;
 
                                                         if (!we.inEditMode) {
                                                                 itemText.addClass('selected');
@@ -373,7 +373,7 @@ var we = {
                                                 };
 
                                                 item.addEvent('mouseover', mouseover).addEvent('mouseout', function() {
-                                                        we.onItem = false;
+                                                        we.onItem = null;
 
                                                         if (we.newStateWaiting)
                                                                 weStateUpdated();
@@ -426,19 +426,20 @@ var we = {
                         }
                         else {
                                 // removed
+                                var id = key[0];
 
-                                if (we.onItem && !we.isLocalModification) {
-                                        var id = key[0];
-                                        $(id).retrieve('delete')();
-                                        we.laterDelta[rawKey] = val;
-                                }
-                                else {
-                                        delete we.state[rawKey];
-                                        var id = key[0];
+                                if ($(id)) {
+                                        if (we.onItem && (we.state.get([id, 'pos']) <= we.state.get([we.onItem, 'pos'])) && !we.isLocalModification) {
+                                                $(id).retrieve('delete')();
+                                                we.laterDelta[rawKey] = val;
+                                        }
+                                        else {
+                                                delete we.state[rawKey];
 
-                                        if ($(id)) {
-                                                sortables.removeItems($(id));
-                                                $(id).dispose();
+                                                if ($(id)) {
+                                                        sortables.removeItems($(id));
+                                                        $(id).dispose();
+                                                }
                                         }
                                 }
                         }
