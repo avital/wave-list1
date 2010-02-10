@@ -376,7 +376,7 @@ var we = {
                                                         }
                                                 };
 
-                                                item.addEvent('mouseover', mouseover).addEvent('mouseout', function() {
+                                                var mouseout = function() {
                                                         we.onItem = null;
 
                                                         if (we.newStateWaiting)
@@ -386,7 +386,9 @@ var we = {
                                                                 itemText.removeClass('selected');
                                                                 hideButtons();
                                                         }
-                                                });
+                                                };
+
+                                                item.addEvent('mouseover', mouseover).addEvent('mouseout', mouseout);
 
                                                 itemRemoveButton.addEvent('click', function() {
                                                         we.runTransaction(function() {
@@ -405,6 +407,7 @@ var we = {
                                                         itemTextEdit.focus();
 
                                                         we.globalClickEvent = function() {
+                                                                mouseout();
                                                                 saveItem();
                                                         };
 
