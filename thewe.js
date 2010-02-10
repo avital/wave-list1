@@ -407,8 +407,8 @@ var we = {
                                                         itemTextEdit.focus();
 
                                                         we.globalClickEvent = function() {
-                                                                mouseout();
                                                                 saveItem();
+                                                                mouseout();
                                                         };
 
                                                         $(document.body).addEvent('click', we.globalClickEvent);
