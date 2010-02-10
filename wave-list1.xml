@@ -137,6 +137,8 @@
                             </td>
                           </tr>
                         </table>
+
+			<div style="position: absolute; top: 0px; left: 0px;">Hi</div>
                         
                         <span id="items-unpositioned"></span>
                         
