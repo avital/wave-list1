@@ -489,11 +489,11 @@ function showLaterDeltaNotify() {
         notify.setStyles({
                 right: '0px',
                 top: $(we.onItem).getPosition().y
-        }).show();
+        }).fade('in');
 }
 
 function hideLaterDeltaNotify() {
-        $('notify').hide();
+        $('notify').fade('hide');
 }
 
 function weStateUpdated() {
