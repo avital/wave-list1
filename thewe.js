@@ -360,9 +360,9 @@ var we = {
                                                 });
 
                                                 var mouseover = function() {
-                                                        we.onItem = id;
-
                                                         if (!we.inEditMode) {
+                                                                we.onItem = id;
+
                                                                 itemText.addClass('selected');
                                                                 itemRemoveButton.show();
                                                                 itemRemovePlaceholder.hide();
@@ -377,12 +377,12 @@ var we = {
                                                 };
 
                                                 var mouseout = function() {
-                                                        we.onItem = null;
-
-                                                        if (we.newStateWaiting)
-                                                                weStateUpdated();
-
                                                         if (!we.inEditMode) {
+                                                                we.onItem = null;
+
+                                                                if (we.newStateWaiting)
+                                                                        weStateUpdated();
+
                                                                 itemText.removeClass('selected');
                                                                 hideButtons();
                                                         }
