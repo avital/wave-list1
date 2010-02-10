@@ -345,7 +345,13 @@ var we = {
 */
                                                 };
 
-                                                item.addEvent('mouseover', function() {
+                                                item.store('delete', function() {
+                                                        hideButtons();
+                                                        itemText.removeEvent('dblclick', editItem);
+                                                        item.removeEvent('mouseover', mouseover);
+                                                });
+
+                                                var mouseover = function() {
                                                         we.onItem = true;
 
                                                         if (!we.inEditMode) {
@@ -360,7 +366,9 @@ var we = {
                                                                 itemMovePlaceholder.hide();
 */
                                                         }
-                                                }).addEvent('mouseout', function() {
+                                                };
+
+                                                item.addEvent('mouseover', mouseover).addEvent('mouseout', function() {
                                                         we.onItem = false;
 
                                                         if (we.newStateWaiting)
@@ -416,6 +424,7 @@ var we = {
                                 // removed
 
                                 if (we.onItem) {
+                                        $(id).retrieve('delete')();
                                         we.laterDelta[rawKey] = val;
                                 }
                                 else {
