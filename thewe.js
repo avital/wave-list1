@@ -377,7 +377,7 @@ var we = {
                                                         }
                                                 };
 
-                                                var mouseout = function() {
+                                                var mouseleave = function() {
                                                         if (!we.inEditMode) {
                                                                 we.onItem = null;
 
@@ -389,7 +389,7 @@ var we = {
                                                         }
                                                 };
 
-                                                item.addEvent('mouseover', mouseover).addEvent('mouseout', mouseout);
+                                                item.addEvent('mouseover', mouseover).addEvent('mouseleave', mouseleave);
 
                                                 itemRemoveButton.addEvent('click', function() {
                                                         we.runTransaction(function() {
@@ -409,7 +409,7 @@ var we = {
 
                                                         we.globalClickEvent = function() {
                                                                 saveItem();
-                                                                mouseout();
+                                                                mouseleave();
                                                         };
 
                                                         $(document.body).addEvent('click', we.globalClickEvent);
