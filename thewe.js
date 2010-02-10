@@ -492,7 +492,7 @@ function showLaterDeltaNotify() {
         }).show();
 }
 
-function hideLaterDeltaNofity() {
+function hideLaterDeltaNotify() {
         $('notify').hide();
 }
 
