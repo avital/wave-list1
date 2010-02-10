@@ -493,7 +493,7 @@ function showLaterDeltaNotify() {
 }
 
 function hideLaterDeltaNotify() {
-        $('notify').fade('hide');
+        $('notify').fade('out');
 }
 
 function weStateUpdated() {
