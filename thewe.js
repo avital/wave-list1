@@ -533,7 +533,7 @@ function main() {
                         clone: true,
 
                         onComplete: function(el) {
-                                if (pos != we.state.get([el.id, 'pos'])) {
+                                if (el.getPrevious() != this.origPrev) {
                                         var prev = el.getPrevious();
                                         var next = el.getNext();
 
@@ -548,6 +548,8 @@ function main() {
                         onStart: function(el, clone) {
                                 if (we.globalClickEvent)
                                         we.globalClickEvent();
+
+                                this.origPrev = el.getPrevious();
 
                                 clone.getElements('.item-text').addClass('handclosed');
                                 clone.getElements('button').hide();
