@@ -108,6 +108,7 @@
 
 			  .item-text {
 			    padding: 2px;
+			    white-space: pre;
 			  }
 
 			  .selected {
