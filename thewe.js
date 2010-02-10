@@ -274,8 +274,8 @@ var we = {
 
                                         if (type == 'pos') {
                                                 if (we.onItem &&
-                                                    (((oldVal < we.state.get([we.onItem, 'pos'])) && (val > we.state.get([we.onItem, 'pos']))) ||
-                                                     ((oldVal > we.state.get([we.onItem, 'pos'])) && (val < we.state.get([we.onItem, 'pos'])))) &&
+                                                    (((oldVal <= we.state.get([we.onItem, 'pos'])) && (val > we.state.get([we.onItem, 'pos']))) ||
+                                                     ((oldVal >= we.state.get([we.onItem, 'pos'])) && (val < we.state.get([we.onItem, 'pos'])))) &&
                                                     !we.isLocalModification) {
                                                         we.laterDelta[rawKey] = val;
                                                 }
