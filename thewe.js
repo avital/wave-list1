@@ -349,6 +349,7 @@ var we = {
                                                         hideButtons();
                                                         itemText.removeEvent('dblclick', editItem);
                                                         item.removeEvent('mouseover', mouseover);
+                                                        itemText.setStyle('text-decoration', 'line-through');
                                                 });
 
                                                 var mouseover = function() {
