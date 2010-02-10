@@ -509,7 +509,7 @@ function main() {
                         constrain: true,
                         clone: true,
 
-                        onSort: function(el) {
+                        onComplete: function(el) {
                                 var prev = el.getPrevious();
                                 var next = el.getNext();
 
