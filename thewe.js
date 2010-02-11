@@ -273,9 +273,10 @@ var we = {
                                         var type = key[1];
 
                                         if (type == 'pos') {
-                                                if (we.onItem &&
-                                                    (((oldVal <= we.state.get([we.onItem, 'pos'])) && (val > we.state.get([we.onItem, 'pos']))) ||
-                                                     ((oldVal >= we.state.get([we.onItem, 'pos'])) && (val < we.state.get([we.onItem, 'pos'])))) &&
+                                                if (((we.onItem &&
+                                                     (((oldVal <= we.state.get([we.onItem, 'pos'])) && (val > we.state.get([we.onItem, 'pos']))) ||
+                                                      ((oldVal >= we.state.get([we.onItem, 'pos'])) && (val < we.state.get([we.onItem, 'pos']))))) ||
+                                                    we.isMoving) &&
                                                     !we.isLocalModification) {
                                                         we.laterDelta[rawKey] = val;
                                                         showLaterDeltaNotify();
@@ -315,7 +316,8 @@ var we = {
                                                 var itemMoveButton = itemMove.getElements('.move').hide();
                                                 var itemMovePlaceholder = new Element('span').inject(itemMove);
 */
-                                                var itemTextCell = new Element('td').inject(item);
+
+                                                var itemTextCell = new Element('td', {'class': 'item-text-cell'}).inject(item);
                                                 var itemText = new Element('div', {'class': 'item-text ' + (we.inEditMode ? '' : 'handopen'), id: id + '-text'}).inject(itemTextCell);
                                                 var itemTextEdit = new Element('input', {'class': 'edit'}).inject(itemTextCell);
 
@@ -372,7 +374,7 @@ var we = {
                                                 });
 
                                                 var mouseover = function() {
-                                                        if (!we.inEditMode) {
+                                                        if (!we.inEditMode && !we.isMoving) {
                                                                 we.onItem = id;
 
                                                                 itemText.addClass('selected');
@@ -389,16 +391,21 @@ var we = {
                                                 };
 
                                                 var mouseleave = function() {
+                                                        if (!we.inEditMode && !we.isMoving) {
+                                                                we.onItem = null;
+                                                        }
+
+                                                        itemText.removeClass('selected');
+                                                        hideButtons();
+
+
                                                         if (we.newStateWaiting)
                                                                 weStateUpdated();
-
-                                                        if (!we.inEditMode) {
-                                                                we.onItem = null;
-
-                                                                itemText.removeClass('selected');
-                                                                hideButtons();
-                                                        }
                                                 };
+
+                                                item.store('hideButtons', function() {
+                                                        hideButtons();
+                                                });
 
                                                 item.addEvent('mouseover', mouseover).addEvent('mouseleave', mouseleave);
 
@@ -450,10 +457,12 @@ var we = {
                                 var id = key[0];
 
                                 if ($(id)) {
-                                        if (we.onItem && (we.state.get([id, 'pos']) <= we.state.get([we.onItem, 'pos'])) && !we.isLocalModification) {
+                                        if (((we.onItem && (we.state.get([id, 'pos']) <= we.state.get([we.onItem, 'pos']))) || we.isMoving) &&
+                                            !we.isLocalModification) {
                                                 $(id).retrieve('delete')();
 
                                                 we.laterDelta[rawKey] = val;
+
                                                 showLaterDeltaNotify();
                                         }
                                         else {
@@ -498,8 +507,8 @@ function itemAfter(pos) {
 }
 
 function showLaterDeltaNotify() {
-        var notify = $('notify');
-        notify.setStyle('top', $(we.onItem).getPosition().y).fade('in');
+        if (!we.isMoving)
+                $('notify').setStyle('top', $(we.onItem).getPosition().y).fade('in');
 }
 
 function hideLaterDeltaNotify() {
@@ -509,7 +518,7 @@ function hideLaterDeltaNotify() {
 function weStateUpdated() {
         var startTime = $time();
 
-        if (we.onItem) {
+        if (we.onItem || we.isMoving) {
                 we.newStateWaiting = true;
         } else {
                 we.applyStateDelta(we.laterDelta);
@@ -536,6 +545,11 @@ function main() {
                         clone: true,
 
                         onComplete: function(el) {
+                                we.isMoving = false;
+
+                                if (we.newStateWaiting)
+                                        weStateUpdated();
+
                                 if (el.getPrevious() != this.origPrev) {
                                         var prev = el.getPrevious();
                                         var next = el.getNext();
@@ -552,9 +566,11 @@ function main() {
                                 if (we.globalClickEvent)
                                         we.globalClickEvent();
 
+                                el.retrieve('hideButtons')();
+                                we.isMoving = true;
                                 this.origPrev = el.getPrevious();
 
-                                clone.getElements('.item-text').addClass('handclosed');
+                                clone.getElements('.item-text').addClass('handclosed').addClass('move-clone');
                                 clone.getElements('button').hide();
                         }
                 });
