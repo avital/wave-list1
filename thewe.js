@@ -316,7 +316,7 @@ var we = {
                                                 var itemMovePlaceholder = new Element('span').inject(itemMove);
 */
                                                 var itemTextCell = new Element('td').inject(item);
-                                                var itemText = new Element('div', {'class': 'item-text handopen', id: id + '-text'}).inject(itemTextCell);
+                                                var itemText = new Element('div', {'class': 'item-text ' + (we.inEditMode ? '' : 'handopen'), id: id + '-text'}).inject(itemTextCell);
                                                 var itemTextEdit = new Element('input', {'class': 'edit'}).inject(itemTextCell);
 
                                                 sortables.addItems(item);
@@ -339,6 +339,7 @@ var we = {
                                                                 itemTextEdit.setStyle('display', 'none');
                                                                 itemText.setStyle('display', '');
                                                                 we.inEditMode = false;
+                                                                $$('.item-text').addClass('handopen');
                                                                 $(document.body).removeEvent('click', we.globalClickEvent);
                                                                 we.globalClickEvent = null;
                                                         }
@@ -410,6 +411,8 @@ var we = {
 
                                                 var editItem = function() {
                                                         we.inEditMode = true;
+                                                        $$('.item-text').removeClass('handopen');
+
                                                         hideButtons();
 
                                                         itemTextEdit.set('value', itemText.get('text'));

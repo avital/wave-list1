@@ -127,7 +127,7 @@
 
 			</style>
                         
-                        <table class="items-and-new">
+                        <table class="items-and-new" cellspacing="0">
                           <colgroup>
                             <col width="1px"></col>
 			    <col width="1px"></col>
