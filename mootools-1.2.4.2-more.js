@@ -3854,7 +3854,7 @@ var Sortables = new Class({
 			onComplete: this.end.bind(this)
 		});
 
-		this.clone.inject(this.element, 'before');
+//		this.clone.inject(this.element, 'before');
 		this.drag.start(event);
 	},
 

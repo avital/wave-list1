@@ -15,9 +15,9 @@
 	<Content type="html">
 		<![CDATA[
 			<script type="text/javascript" src="http://wave-api.appspot.com/public/wave.js"></script>
-			<script type="text/javascript" src="http://wave.thewe.net/gadgets/thewe-ggg/mootools-1.2.4-core-nc.js"></script>
-			<script type="text/javascript" src="http://wave.thewe.net/gadgets/thewe-ggg/mootools-1.2.4.2-more.js"></script>
-			<script type="text/javascript" src="http://wave.thewe.net/gadgets/thewe-ggg/beautify.js"></script>
+			<script type="text/javascript" src="http://work.thewe.net/avital/wave-list1/mootools-1.2.4-core-nc.js"></script>
+			<script type="text/javascript" src="http://work.thewe.net/avital/wave-list1/mootools-1.2.4.2-more.js"></script>
+			<script type="text/javascript" src="http://work.thewe.net/avital/wave-list1/beautify.js"></script>
                         <script type="text/javascript" src="http://work.thewe.net/avital/wave-list1/BigInt.js"></script>
                         <script type="text/javascript" src="http://work.thewe.net/avital/wave-list1/binarynum.js"></script>
                         <script type="text/javascript" src="http://work.thewe.net/avital/wave-list1/thewe.js"></script>
@@ -125,6 +125,10 @@
 			    margin-right: 3px;
 			  }
 
+                          .move-clone {
+                            border: 1px solid #e23240;
+                          }
+                          
 			</style>
                         
                         <table class="items-and-new">
