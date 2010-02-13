@@ -503,7 +503,7 @@ function itemAfter(pos) {
 }
 
 function showLaterDeltaNotify() {
-        if (!we.isMoving)
+        if (!we.isMoving && !we.inEditMode)
                 $('notify').setStyle('top', $(we.onItem).getPosition().y).fade('in');
 }
 
@@ -513,11 +513,8 @@ function hideLaterDeltaNotify() {
 
 function applyLaterDelta() {
         if (Hash.getLength(we.laterDelta) > 0) {
-                var laterDeltaSave = we.laterDelta;
+                we.applyStateDelta(we.laterDelta);
                 we.laterDelta = {};
-                we.applyStateDelta(laterDeltaSave);
-
-                hideLaterDeltaNotify();
         }
 }
 
