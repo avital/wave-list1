@@ -158,7 +158,7 @@
                           </tr>
                         </table>
 
-			<div id="notify">Move cursor to see updates</div>
+			<div id="notify"></div>
 
                         <span id="items-unpositioned"></span>
                         
