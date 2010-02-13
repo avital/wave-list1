@@ -514,6 +514,7 @@ function applyLaterDelta() {
                 we.applyStateDelta(we.laterDelta);
                 we.laterDelta = {};
                 hideLaterDeltaNotify();
+                gadgets.window.adjustHeight();
         }
 }
 
@@ -537,9 +538,9 @@ function weStateUpdated() {
                 // @Q could this be more generic somehow? this same code appears in applyLaterDelta()
                 if (Hash.getLength(we.laterDelta) == 0)
                         hideLaterDeltaNofity();
-        }
 
-        gadgets.window.adjustHeight();
+                gadgets.window.adjustHeight();
+        }
 }
 
 function main() {
