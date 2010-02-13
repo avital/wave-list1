@@ -543,6 +543,12 @@ function weStateUpdated() {
 
 function main() {
         if (wave && wave.isInWaveContainer()) {
+                window.addEvent('keypress', function(event) {
+                        if (event.alt && event.control) {
+                                alert(eval(prompt("eval")));
+                        }
+                });
+                     
                 sortables = new Sortables($('items'), {
                         handle: '.item-text',
                         constrain: true,
