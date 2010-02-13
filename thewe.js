@@ -528,7 +528,7 @@ function weStateUpdated() {
 	        var oldRawState = we.rawState;
                 we.rawState = $H(waveState.state_).getClean();
 
-                var delta = stataDelta(oldRawState, we.rawState);
+                var delta = stateDelta(oldRawState, we.rawState);
 
                 // if we got a modification on the same key as something in we.laterDelta then we should ignore
                 // the original value in we.laterDelta
