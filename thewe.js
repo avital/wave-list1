@@ -516,7 +516,7 @@ function applyLaterDelta() {
         if (Hash.getLength(we.laterDelta) > 0) {
                 we.applyStateDelta(we.laterDelta);
                 we.laterDelta = {};
-                we.hideLaterDeltaNotify();
+                hideLaterDeltaNotify();
         }
 }
 
