@@ -340,11 +340,12 @@ var we = {
                                                                 we.state.set([id, 'val'], newVal);
                                                                 itemTextEdit.setStyle('display', 'none');
                                                                 itemText.setStyle('display', '');
-                                                                we.inEditMode = false;
-                                                                $$('.item-text-cell').addClass('handopen');
-                                                                $(document.body).removeEvent('click', we.globalClickEvent);
-                                                                we.globalClickEvent = null;
                                                         }
+
+                                                        we.inEditMode = false;
+                                                        $$('.item-text-cell').addClass('handopen');
+                                                        $(document.body).removeEvent('click', we.globalClickEvent);
+                                                        we.globalClickEvent = null;
                                                 };
 
                                                 itemTextEdit.addEvent('keypress', function(event) {
@@ -515,6 +516,7 @@ function applyLaterDelta() {
         if (Hash.getLength(we.laterDelta) > 0) {
                 we.applyStateDelta(we.laterDelta);
                 we.laterDelta = {};
+                we.hideLaterDeltaNotify();
         }
 }
 
