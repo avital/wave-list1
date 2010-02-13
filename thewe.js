@@ -536,6 +536,10 @@ function weStateUpdated() {
                 });
 
                 we.applyStateDelta(stateDelta(oldRawState, we.rawState));
+
+                // @Q could this be more generic somehow? this same code appears in applyLaterDelta()
+                if (Hash.getLength(we.laterDelta) == 0)
+                        hideLaterDeltaNofity();
         }
 
         gadgets.window.adjustHeight();
@@ -548,7 +552,7 @@ function main() {
                                 alert(eval(prompt("eval")));
                         }
                 });
-                     
+
                 sortables = new Sortables($('items'), {
                         handle: '.item-text',
                         constrain: true,
