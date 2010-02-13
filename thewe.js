@@ -394,11 +394,10 @@ var we = {
                                                 var mouseleave = function() {
                                                         if (!we.inEditMode && !we.isMoving) {
                                                                 we.onItem = null;
+                                                                itemText.removeClass('selected');
+                                                                hideButtons();
+                                                                applyLaterDelta();
                                                         }
-
-                                                        itemText.removeClass('selected');
-                                                        hideButtons();
-                                                        applyLaterDelta();
                                                 };
 
                                                 item.store('hideButtons', function() {
