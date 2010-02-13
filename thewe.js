@@ -397,10 +397,7 @@ var we = {
 
                                                         itemText.removeClass('selected');
                                                         hideButtons();
-
-
-                                                        if (we.newStateWaiting)
-                                                                weStateUpdated();
+                                                        applyLaterDelta();
                                                 };
 
                                                 item.store('hideButtons', function() {
@@ -462,7 +459,6 @@ var we = {
                                                 $(id).retrieve('delete')();
 
                                                 we.laterDelta[rawKey] = val;
-
                                                 showLaterDeltaNotify();
                                         }
                                         else {
@@ -515,21 +511,30 @@ function hideLaterDeltaNotify() {
         $('notify').fade('out');
 }
 
+function applyLaterDelta() {
+        if (Hash.getLength(we.laterDelta) > 0) {
+                var laterDeltaSave = we.laterDelta;
+                we.laterDelta = {};
+                we.applyStateDelta(laterDeltaSave);
+
+                hideLaterDeltaNotify();
+        }
+}
+
 function weStateUpdated() {
         var startTime = $time();
-
-        if (we.onItem || we.isMoving) {
-                we.newStateWaiting = true;
-        } else {
-                we.applyStateDelta(we.laterDelta);
-                we.laterDelta = {};
-                hideLaterDeltaNotify();
-                we.newStateWaiting = false;
-        }
 
         if ((waveState = wave.getState())) {
 	        var oldRawState = we.rawState;
                 we.rawState = $H(waveState.state_).getClean();
+
+                var delta = stataDelta(oldRawState, we.rawState);
+
+                // if we got a modification on the same key as something in we.laterDelta then we should ignore
+                // the original value in we.laterDelta
+                Hash.each(delta, function(val, key) {
+                        delete we.laterDelta[key];
+                });
 
                 we.applyStateDelta(stateDelta(oldRawState, we.rawState));
         }
@@ -547,8 +552,7 @@ function main() {
                         onComplete: function(el) {
                                 we.isMoving = false;
 
-                                if (we.newStateWaiting)
-                                        weStateUpdated();
+                                applyLaterDelta();
 
                                 if (el.getPrevious() != this.origPrev) {
                                         var prev = el.getPrevious();
