@@ -346,6 +346,7 @@ var we = {
                                                         $$('.item-text-cell').addClass('handopen');
                                                         $(document.body).removeEvent('click', we.globalClickEvent);
                                                         we.globalClickEvent = null;
+                                                        mouseleave();
                                                 };
 
                                                 itemTextEdit.addEvent('keypress', function(event) {
@@ -424,11 +425,7 @@ var we = {
                                                         itemText.setStyle('display', 'none');
                                                         itemTextEdit.focus();
 
-                                                        we.globalClickEvent = function() {
-                                                                saveItem();
-                                                                mouseleave();
-                                                        };
-
+                                                        we.globalClickEvent = saveItem;
                                                         $(document.body).addEvent('click', we.globalClickEvent);
                                                         return false;
                                                 };
