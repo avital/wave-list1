@@ -317,8 +317,8 @@ var we = {
                                                 var itemMovePlaceholder = new Element('span').inject(itemMove);
 */
 
-                                                var itemTextCell = new Element('td', {'class': 'item-text-cell'}).inject(item);
-                                                var itemText = new Element('div', {'class': 'item-text ' + (we.inEditMode ? '' : 'handopen'), id: id + '-text'}).inject(itemTextCell);
+                                                var itemTextCell = new Element('td', {'class': 'item-text-cell ' + (we.inEditMode ? '' : 'handopen')}).inject(item);
+                                                var itemText = new Element('div', {'class': 'item-text', id: id + '-text'}).inject(itemTextCell);
                                                 var itemTextEdit = new Element('input', {'class': 'edit'}).inject(itemTextCell);
 
                                                 sortables.addItems(item);
@@ -341,7 +341,7 @@ var we = {
                                                                 itemTextEdit.setStyle('display', 'none');
                                                                 itemText.setStyle('display', '');
                                                                 we.inEditMode = false;
-                                                                $$('.item-text').addClass('handopen');
+                                                                $$('.item-text-cell').addClass('handopen');
                                                                 $(document.body).removeEvent('click', we.globalClickEvent);
                                                                 we.globalClickEvent = null;
                                                         }
@@ -418,7 +418,7 @@ var we = {
 
                                                 var editItem = function() {
                                                         we.inEditMode = true;
-                                                        $$('.item-text').removeClass('handopen');
+                                                        $$('.item-text-cell').removeClass('handopen');
 
                                                         hideButtons();
 
@@ -570,7 +570,7 @@ function main() {
                                 we.isMoving = true;
                                 this.origPrev = el.getPrevious();
 
-                                clone.getElements('.item-text').addClass('handclosed').addClass('move-clone');
+                                clone.getElements('.item-text-cell').addClass('handclosed').addClass('move-clone');
                                 clone.getElements('button').hide();
                         }
                 });
