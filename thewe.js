@@ -504,8 +504,9 @@ function itemAfter(pos) {
 }
 
 function showLaterDeltaNotify() {
-        if (!we.isMoving && !we.inEditMode)
-                $('notify').setStyle('top', $(we.onItem).getPosition().y).fade('in');
+        if (!we.isMoving)
+                $('notify').set('text', we.inEditMode ? 'Finish editing to see updates' : 'Move cursor to see updates')
+                .setStyle('top', $(we.onItem).getPosition().y).fade('in');
 }
 
 function hideLaterDeltaNotify() {
