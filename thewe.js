@@ -154,6 +154,11 @@ var we = {
                         we.applyStateDelta(we.delta);
                         we.isLocalModification = false;
 
+                        console.log('Outgoing delta:');
+                        console.log(deltaToString(we.delta));
+                        console.log();
+
+
                         // Send to wave server (on next stateUpdated there will be an empty delta)
                         wave.getState().submitDelta(we.delta);
 
@@ -518,6 +523,12 @@ function applyLaterDelta() {
         }
 }
 
+function deltaToString(delta) {
+        return Hash.map(delta, function(val, key) {
+                return key + ": " + val
+        }).getValues().join('\n');
+}
+
 function weStateUpdated() {
         var startTime = $time();
 
@@ -526,6 +537,10 @@ function weStateUpdated() {
                 we.rawState = $H(waveState.state_).getClean();
 
                 var delta = stateDelta(oldRawState, we.rawState);
+
+                console.log('Incoming delta:');
+                console.log(deltaToString(delta));
+                console.log();
 
                 // if we got a modification on the same key as something in we.laterDelta then we should ignore
                 // the original value in we.laterDelta
