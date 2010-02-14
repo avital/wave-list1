@@ -583,7 +583,10 @@ function main() {
 
                                 applyLaterDelta();
 
-                                if (this.origPrev && (el.getPrevious() != this.origPrev)) {
+                                console.log('el.getPrevious(): ' + el.getPrevious().id + ', text: ' + el.getPrevious().get('text'));
+                                console.log('this.origPrev: ' + this.origPrev.id + ', text: ' + this.origPrev.get('text'));
+
+                                if (el.getPrevious() != this.origPrev) {
                                         var prev = el.getPrevious();
                                         var next = el.getNext();
 
