@@ -292,15 +292,18 @@ var we = {
                                                     !we.isLocalModification) {
                                                         we.laterDelta[rawKey] = val;
                                                         showLaterDeltaNotify();
-                                                }
-                                                else {
+                                                } else {
                                                         we.state[rawKey] = val;
                                                         $(id).inject(itemAfter(val), 'before');
                                                 }
                                         }
                                         else if (type == 'val') {
-                                                we.state[rawKey] = val;
-                                                $(id + '-text').set('text', val);
+                                                if (we.isMoving && we.onItem == id) {
+                                                        we.laterDelta[rawKey] = val;
+                                                } else {
+                                                        we.state[rawKey] = val;
+                                                        $(id + '-text').set('text', val);
+                                                }
                                         }
                                 }
                                 else {
