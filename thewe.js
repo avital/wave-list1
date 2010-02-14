@@ -537,7 +537,7 @@ function weStateUpdated() {
 
                 // @Q could this be more generic somehow? this same code appears in applyLaterDelta()
                 if (Hash.getLength(we.laterDelta) == 0)
-                        hideLaterDeltaNofity();
+                        hideLaterDeltaNotify();
 
                 gadgets.window.adjustHeight();
         }
