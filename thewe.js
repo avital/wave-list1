@@ -2,6 +2,13 @@
 // JS Foundations //
 ////////////////////
 
+if (typeof console == 'undefined') {
+        console = {
+                log: function() {
+                }
+        };
+}
+
 shouldntHappen = function() {
         console.log("Shouldn't happen!");
 };
