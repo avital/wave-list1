@@ -595,8 +595,9 @@ function main() {
                                         var newPos = stringBetween(lowerBound, upperBound);
 
                                         we.state.set([el.id, 'pos'], newPos);
-                                        this.origPrev = null;
                                 }
+
+                                this.origPrev = null;
                         },
 
                         onStart: function(el, clone) {
