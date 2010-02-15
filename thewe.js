@@ -576,11 +576,14 @@ function main() {
                                         alert(eval(prompt("eval")));
                                 } else if (event.key == 'a') {
                                         // add a new item each 5 seconds
-                                        var item = 0;
+                                        var item = 1;
 
-                                        (function() {
-                                                we.state.append(item++);
+                                        constantAppendTimer = (function() {
+                                                we.state.append(item);
+                                                item++;
                                         }).periodical(5000);
+                                } else if (event.key == 's') {
+                                        $clear(constantAppendTimer);
                                 }
                         }
                 });
