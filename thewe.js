@@ -580,7 +580,7 @@ function main() {
 
                                         constantAppendTimer = (function() {
                                                 we.state.append('' + (item++));
-                                        }).periodical(1000);
+                                        }).periodical(2000);
                                 } else if (event.key == 's') {
                                         $clear(constantAppendTimer);
                                 }
