@@ -579,8 +579,7 @@ function main() {
                                         var item = 1;
 
                                         constantAppendTimer = (function() {
-                                                we.state.append(item);
-                                                item++;
+                                                we.state.append(item++);
                                         }).periodical(5000);
                                 } else if (event.key == 's') {
                                         $clear(constantAppendTimer);
