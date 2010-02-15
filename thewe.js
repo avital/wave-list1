@@ -389,7 +389,15 @@ var we = {
                                                         item.removeEvent('mouseover', mouseover);
                                                         itemText.setStyle('text-decoration', 'line-through');
                                                         itemText.setStyle('color', 'red');
-                                                        we.onItem = null;
+
+                                                        var next = item.getNext();
+
+                                                        if (next.id == 'items-end')
+                                                                we.onItem = null;
+                                                        else {
+                                                                we.onItem = next.id;
+                                                                next.retrieve('mouseover')();
+                                                        }
                                                 });
 
                                                 var mouseover = function() {
@@ -426,7 +434,7 @@ var we = {
                                                 });
 
                                                 item.addEvent('mouseover', mouseover).addEvent('mouseleave', mouseleave);
-                                                item.store('mouseleave', mouseleave);
+                                                item.store('mouseover', mouseover).store('mouseleave', mouseleave);
 
                                                 itemRemoveButton.addEvent('click', function() {
                                                         we.runTransaction(function() {
