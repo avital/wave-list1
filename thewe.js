@@ -152,7 +152,7 @@ var we = {
 
         __submitChanges: function() {
                 if (--we.transactionDepth == 0) {
-                        /*
+
                         // Update local raw state
                         Hash.extend(we.rawState, we.delta);
                         Hash.removeNullValues(we.rawState);
@@ -166,7 +166,7 @@ var we = {
                         console.log(deltaToString(we.delta));
                         console.log();
 
-                        */
+
                         // Send to wave server (on next stateUpdated there will be an empty delta)
                         wave.getState().submitDelta(we.delta);
 
