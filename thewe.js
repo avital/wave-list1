@@ -117,7 +117,7 @@ function stateDelta(oldState, newState){
 	        if (newState) {
 	                Hash.each(oldState, function(v1, k1){
 		                if (v1 !== newState[k1]){
-		                        diff[k1] = newState[k1];
+		                        diff[k1] = newState[k1] || null;
 		                }
 	                });
 
