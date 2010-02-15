@@ -149,15 +149,13 @@ var we = {
         delta: {},
         laterDelta: {},
         transactionDepth: 0,
+        ignoreInIncomingDelta: {},
 
         __submitChanges: function() {
                 if (--we.transactionDepth == 0) {
+                        Hash.extend(we.ignoreInIncomingDelta, we.delta);
 
-                        // Update local raw state
-                        Hash.extend(we.rawState, we.delta);
-                        Hash.removeNullValues(we.rawState);
-
-                        // Apply to local we.objects
+                        // Apply to local state and view
                         we.isLocalModification = true;
                         we.applyStateDelta(we.delta);
                         we.isLocalModification = false;
@@ -165,7 +163,6 @@ var we = {
                         console.log('Outgoing delta:');
                         console.log(deltaToString(we.delta));
                         console.log();
-
 
                         // Send to wave server (on next stateUpdated there will be an empty delta)
                         wave.getState().submitDelta(we.delta);
@@ -552,7 +549,7 @@ function applyLaterDelta() {
 
 function deltaToString(delta) {
         return Hash.map(delta, function(val, key) {
-                return key + ": " + val
+                return key + ": " + val;
         }).getValues().join('\n');
 }
 
@@ -573,6 +570,15 @@ function weStateUpdated() {
                 // the original value in we.laterDelta
                 Hash.each(delta, function(val, key) {
                         delete we.laterDelta[key];
+                });
+
+                Hash.each(we.ignoreInIncomingDelta, function(val, key) {
+                        if (delta[key]) {
+                                if (delta[key] == val)
+                                        delete delta[key];
+
+                                delete we.ignoreInIncomingDelta[key];
+                        }
                 });
 
                 we.applyStateDelta(delta);
