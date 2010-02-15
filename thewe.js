@@ -154,6 +154,8 @@ var we = {
         __submitChanges: function() {
                 if (--we.transactionDepth == 0) {
                         Hash.extend(we.ignoreInIncomingDelta, we.delta);
+                        Hash.extend(we.state, we.delta);
+                        Hash.removeNullValues(we.state);
 
                         // Apply to local state and view
                         we.isLocalModification = true;
