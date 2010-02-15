@@ -425,6 +425,7 @@ var we = {
                                                 });
 
                                                 item.addEvent('mouseover', mouseover).addEvent('mouseleave', mouseleave);
+                                                item.store('mouseleave', mouseleave);
 
                                                 itemRemoveButton.addEvent('click', function() {
                                                         we.runTransaction(function() {
