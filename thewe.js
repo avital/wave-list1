@@ -389,15 +389,6 @@ var we = {
                                                         item.removeEvent('mouseover', mouseover);
                                                         itemText.setStyle('text-decoration', 'line-through');
                                                         itemText.setStyle('color', 'red');
-
-                                                        var next = item.getNext();
-
-                                                        if (next.id == 'items-end')
-                                                                we.onItem = null;
-                                                        else {
-                                                                we.onItem = next.id;
-                                                                next.retrieve('mouseover')();
-                                                        }
                                                 });
 
                                                 var mouseover = function() {
@@ -491,8 +482,19 @@ var we = {
                                                 delete we.state[rawKey];
 
                                                 if ($(id)) {
+                                                        var next = item.getNext();
+
                                                         sortables.removeItems($(id));
                                                         $(id).dispose();
+
+                                                        if (isLocalModification) {
+                                                                if (next.id == 'items-end') {
+                                                                        we.onItem = null;
+                                                                } else {
+                                                                        we.onItem = next.id;
+                                                                        next.retrieve('mouseover')();
+                                                                }
+                                                        }
                                                 }
                                         }
                                 }
