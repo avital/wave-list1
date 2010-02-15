@@ -481,7 +481,8 @@ var we = {
                                         else {
                                                 delete we.state[rawKey];
 
-                                                if ($(id)) {
+                                                var item = $(id);
+                                                if (item) {
                                                         var next = item.getNext();
 
                                                         sortables.removeItems($(id));
