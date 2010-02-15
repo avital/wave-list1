@@ -570,9 +570,18 @@ function weStateUpdated() {
 
 function main() {
         if (wave && wave.isInWaveContainer()) {
-                window.addEvent('keypress', function(event) {
+                window.addEvent('keyup', function(event) {
                         if (event.alt && event.control) {
-                                alert(eval(prompt("eval")));
+                                if (event.key == 'e') {
+                                        alert(eval(prompt("eval")));
+                                } else if (event.key == 'a') {
+                                        // add a new item each 5 seconds
+                                        var item = 0;
+
+                                        (function() {
+                                                we.state.append(item++);
+                                        }).periodical(5000);
+                                }
                         }
                 });
 
