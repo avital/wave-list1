@@ -389,6 +389,7 @@ var we = {
                                                         item.removeEvent('mouseover', mouseover);
                                                         itemText.setStyle('text-decoration', 'line-through');
                                                         itemText.setStyle('color', 'red');
+                                                        we.onItem = null;
                                                 });
 
                                                 var mouseover = function() {
