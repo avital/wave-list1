@@ -488,7 +488,7 @@ var we = {
                                                         sortables.removeItems($(id));
                                                         $(id).dispose();
 
-                                                        if (isLocalModification) {
+                                                        if (we.isLocalModification) {
                                                                 if (next.id == 'items-end') {
                                                                         we.onItem = null;
                                                                 } else {
