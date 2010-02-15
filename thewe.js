@@ -393,6 +393,9 @@ var we = {
 
                                                 var mouseover = function() {
                                                         if (!we.inEditMode && !we.isMoving) {
+                                                                if (we.onItem)
+                                                                        $(we.onItem).retrieve('mouseleave')();
+
                                                                 we.onItem = id;
 
                                                                 itemText.addClass('selected');
