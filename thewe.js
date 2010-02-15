@@ -152,6 +152,7 @@ var we = {
 
         __submitChanges: function() {
                 if (--we.transactionDepth == 0) {
+                        /*
                         // Update local raw state
                         Hash.extend(we.rawState, we.delta);
                         Hash.removeNullValues(we.rawState);
@@ -165,7 +166,7 @@ var we = {
                         console.log(deltaToString(we.delta));
                         console.log();
 
-
+                        */
                         // Send to wave server (on next stateUpdated there will be an empty delta)
                         wave.getState().submitDelta(we.delta);
 
@@ -558,7 +559,7 @@ function weStateUpdated() {
                         delete we.laterDelta[key];
                 });
 
-                we.applyStateDelta(stateDelta(oldRawState, we.rawState));
+                we.applyStateDelta(delta);
 
                 // @Q could this be more generic somehow? this same code appears in applyLaterDelta()
                 if (Hash.getLength(we.laterDelta) == 0)
@@ -580,7 +581,7 @@ function main() {
 
                                         constantAppendTimer = (function() {
                                                 we.state.append('' + (item++));
-                                        }).periodical(2000);
+                                        }).periodical(3500);
                                 } else if (event.key == 's') {
                                         $clear(constantAppendTimer);
                                 }
