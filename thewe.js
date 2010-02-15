@@ -572,8 +572,9 @@ function weStateUpdated() {
                         delete we.laterDelta[key];
                 });
 
+                // ignore any elements in the delta with the same key as something that the user originally generated
                 Hash.each(we.ignoreInIncomingDelta, function(val, key) {
-                        if (delta[key]) {
+                        if (delta[key] !== undefined) {
                                 if (delta[key] == val)
                                         delete delta[key];
 
