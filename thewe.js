@@ -153,8 +153,6 @@ var we = {
 
         __submitChanges: function() {
                 if (--we.transactionDepth == 0) {
-                        Hash.extend(we.ignoreInIncomingDelta, we.delta);
-
                         we.isLocalModification = true;
                         we.applyStateDelta(we.delta);
                         we.isLocalModification = false;
@@ -271,7 +269,7 @@ var we = {
         applyStateDelta: function(delta) {
                 Hash.each(delta, function(val, rawKey) {
                         var key = rawKey.split('.');
-                        var oldVal = we.state[rawKey];
+                        var oldVal = we.rawState[rawKey];
 
                         if (val) {
                                 if (oldVal) {
@@ -572,16 +570,6 @@ function weStateUpdated() {
                 // the original value in we.laterDelta
                 Hash.each(delta, function(val, key) {
                         delete we.laterDelta[key];
-                });
-
-                // ignore any elements in the delta with the same key as something that the user originally generated
-                Hash.each(we.ignoreInIncomingDelta, function(val, key) {
-                        if (delta[key] !== undefined) {
-                                if (delta[key] == val)
-                                        delete delta[key];
-
-                                delete we.ignoreInIncomingDelta[key];
-                        }
                 });
 
                 console.log('Post-clean incoming delta:');
