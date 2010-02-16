@@ -568,10 +568,6 @@ function weStateUpdated() {
                         delete we.laterDelta[key];
                 });
 
-                console.log('Post-clean incoming delta:');
-                console.log(deltaToString(delta));
-                console.log();
-
                 we.applyStateDelta(delta, oldRawState);
 
                 // @Q could this be more generic somehow? this same code appears in applyLaterDelta()
