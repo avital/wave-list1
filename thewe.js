@@ -563,6 +563,10 @@ function weStateUpdated() {
                 console.log(deltaToString(delta));
                 console.log();
 
+                console.log('To ignore:');
+                console.log(deltaToString(delta));
+                console.log();
+
                 // ignore any elements in the delta with the same key as something that the user originally generated
                 Hash.each(we.ignoreInIncomingDelta, function(val, key) {
                         if (delta[key] !== undefined) {
@@ -572,6 +576,10 @@ function weStateUpdated() {
                                 delete we.ignoreInIncomingDelta[key];
                         }
                 });
+
+                console.log('Intermediate:');
+                console.log(deltaToString(delta));
+                console.log();
 
                 // if we got a modification on the same key as something in we.laterDelta then we should ignore
                 // the original value in we.laterDelta
