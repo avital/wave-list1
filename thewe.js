@@ -632,8 +632,6 @@ function main() {
                         onComplete: function(el) {
                                 we.isMoving = false;
 
-                                applyLaterDelta();
-
                                 if (this.origPrev !== undefined && (el.getPrevious() != this.origPrev)) {
                                         var prev = el.getPrevious();
                                         var next = el.getNext();
@@ -642,7 +640,11 @@ function main() {
                                         var upperBound = (next.id != 'items-end') ? we.state.get([next.id, 'pos']) : '1';
                                         var newPos = stringBetween(lowerBound, upperBound);
 
+                                        applyLaterDelta();
+
                                         we.state.set([el.id, 'pos'], newPos);
+                                } else {
+                                        applyLaterDelta();
                                 }
 
                                 this.origPrev = undefined;
