@@ -640,7 +640,7 @@ function main() {
                                         we.state.set([el.id, 'pos'], newPos);
                                 }
 
-                                this.origPrev = null;
+                                this.origPrev = undefined;
                         },
 
                         onStart: function(el, clone) {
