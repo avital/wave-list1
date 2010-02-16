@@ -558,7 +558,7 @@ function weStateUpdated() {
                 console.log('weStateUpdated:');
                 console.log(deltaToString(waveState.state_));
                 console.log();
-                
+
 	        var oldRawState = we.rawState;
                 we.rawState = $H(waveState.state_).getClean();
 
@@ -583,6 +583,10 @@ function weStateUpdated() {
                                 delete we.ignoreInIncomingDelta[key];
                         }
                 });
+
+                console.log('Post-clean incoming delta:');
+                console.log(deltaToString(delta));
+                console.log();
 
                 we.applyStateDelta(delta);
 
