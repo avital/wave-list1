@@ -320,11 +320,6 @@ var we = {
                                                 var itemEdit = $('edit-proto').clone().inject(item);
                                                 var itemEditButton = itemEdit.getElements('button').hide();
                                                 var itemEditPlaceholder = new Element('span').inject(itemEdit);
-/*
-                                                var itemMove = $('move-proto').clone().inject(item);
-                                                var itemMoveButton = itemMove.getElements('.move').hide();
-                                                var itemMovePlaceholder = new Element('span').inject(itemMove);
-*/
 
                                                 var itemTextCell = new Element('td', {'class': 'item-text-cell ' + (we.inEditMode ? '' : 'handopen')}).inject(item);
                                                 var itemText = new Element('div', {'class': 'item-text', id: id + '-text'}).inject(itemTextCell);
@@ -557,7 +552,7 @@ function weStateUpdated() {
                 console.log(deltaToString(waveState.state_));
                 console.log();
 
-	        var oldRawState = we.rawState;
+	        var oldRawState = we.rawState || new we.State();
                 we.rawState = new we.State();
                 Hash.extend(we.rawState, waveState.state_);
 
