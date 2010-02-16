@@ -294,6 +294,8 @@ var we = {
                                                 } else {
                                                         we.state[rawKey] = val;
                                                         $(id).inject(itemAfter(val), 'before');
+
+                                                        debugger;
                                                 }
                                         }
                                         else if (type == 'val') {
@@ -516,6 +518,7 @@ debug = false;
 function itemAfter(pos) {
         var result = null;
 
+        // @later: Could make more efficient with AVL tree
         $$('.item').each(function(el) {
                 if (!result && (we.state.get([el.id, 'pos']) > pos))
                         result = el;
