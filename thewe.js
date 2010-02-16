@@ -339,8 +339,7 @@ var we = {
                                                                         we.state.unset([id, 'pos']);
                                                                         we.state.unset([id, 'val']);
                                                                 });
-                                                        }
-                                                        else {
+                                                        } else {
                                                                 we.state.set([id, 'val'], newVal);
                                                                 itemTextEdit.setStyle('display', 'none');
                                                                 itemText.setStyle('display', '');
@@ -621,8 +620,6 @@ function main() {
                         onComplete: function(el) {
                                 we.isMoving = false;
 
-                                applyLaterDelta();
-
 //                                console.log('el.getPrevious(): ' + el.getPrevious().id + ', text: ' + el.getPrevious().get('text'));
 //                                console.log('this.origPrev: ' + this.origPrev.id + ', text: ' + this.origPrev.get('text'));
 
@@ -637,6 +634,7 @@ function main() {
                                         we.state.set([el.id, 'pos'], newPos);
                                 }
 
+                                applyLaterDelta();
                                 this.origPrev = undefined;
                         },
 
