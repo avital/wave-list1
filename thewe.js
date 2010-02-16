@@ -532,9 +532,13 @@ function hideLaterDeltaNotify() {
 
 function applyLaterDelta() {
         if (Hash.getLength(we.laterDelta) > 0) {
-                we.applyStateDelta(we.laterDelta, we.state);
+                var origLaterDelta = $H(we.laterDelta).getClean();
                 we.laterDelta = {};
-                hideLaterDeltaNotify();
+                we.applyStateDelta(origLaterDelta, we.state);
+
+                if (Hash.getLength(we.laterDelta) == 0)
+                        hideLaterDeltaNotify();
+
                 gadgets.window.adjustHeight();
         }
 }
@@ -564,7 +568,7 @@ function weStateUpdated() {
                 console.log();
 
                 console.log('To ignore:');
-                console.log(deltaToString(delta));
+                console.log(deltaToString(we.ignoreInIncomingDelta));
                 console.log();
 
                 // ignore any elements in the delta with the same key as something that the user originally generated
