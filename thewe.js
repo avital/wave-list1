@@ -563,12 +563,6 @@ function weStateUpdated() {
                 console.log(deltaToString(delta));
                 console.log();
 
-                // if we got a modification on the same key as something in we.laterDelta then we should ignore
-                // the original value in we.laterDelta
-                Hash.each(delta, function(val, key) {
-                        delete we.laterDelta[key];
-                });
-
                 // ignore any elements in the delta with the same key as something that the user originally generated
                 Hash.each(we.ignoreInIncomingDelta, function(val, key) {
                         if (delta[key] !== undefined) {
@@ -577,6 +571,12 @@ function weStateUpdated() {
 
                                 delete we.ignoreInIncomingDelta[key];
                         }
+                });
+
+                // if we got a modification on the same key as something in we.laterDelta then we should ignore
+                // the original value in we.laterDelta
+                Hash.each(delta, function(val, key) {
+                        delete we.laterDelta[key];
                 });
 
                 console.log('Incoming delta after cleaning:');
@@ -619,9 +619,6 @@ function main() {
 
                         onComplete: function(el) {
                                 we.isMoving = false;
-
-//                                console.log('el.getPrevious(): ' + el.getPrevious().id + ', text: ' + el.getPrevious().get('text'));
-//                                console.log('this.origPrev: ' + this.origPrev.id + ', text: ' + this.origPrev.get('text'));
 
                                 if (this.origPrev !== undefined && (el.getPrevious() != this.origPrev)) {
                                         var prev = el.getPrevious();
