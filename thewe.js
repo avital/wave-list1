@@ -448,8 +448,8 @@ var we = {
                                         }
 
                                         if (type == 'pos') {
+                                                console.log(id + ' placed before ' + itemAfter(val).id);
                                                 $(id).inject(itemAfter(val), 'before');
-                                                debugger;
                                         }
                                         else if (type == 'val') {
                                                 $(id + '-text').set('text', val);
