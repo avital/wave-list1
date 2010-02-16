@@ -274,7 +274,7 @@ var we = {
         applyStateDelta: function(delta, oldState) {
                 Hash.each(delta, function(val, rawKey) {
                         var key = rawKey.split('.');
-                        var oldVal = oldRawState[rawKey];
+                        var oldVal = oldState[rawKey];
 
                         if (val) {
                                 if (oldVal) {
