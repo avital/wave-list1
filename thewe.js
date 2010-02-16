@@ -271,7 +271,7 @@ var we = {
         applyStateDelta: function(delta, oldState) {
                 console.log('apply state delta:');
                 console.log(deltaToString(delta));
-                
+
                 Hash.each(delta, function(val, rawKey) {
                         var key = rawKey.split('.');
                         var oldVal = oldState[rawKey];
@@ -293,6 +293,7 @@ var we = {
                                                         showLaterDeltaNotify();
                                                 } else {
                                                         we.state[rawKey] = val;
+                                                        delete we.laterDelta[rawKey];
                                                         $(id).inject(itemAfter(val), 'before');
                                                 }
                                         }
@@ -301,6 +302,7 @@ var we = {
                                                         we.laterDelta[rawKey] = val;
                                                 } else {
                                                         we.state[rawKey] = val;
+                                                        delete we.laterDelta[rawKey];
                                                         $(id + '-text').set('text', val);
                                                 }
                                         }
@@ -309,6 +311,7 @@ var we = {
                                         // added
 
                                         we.state[rawKey] = val;
+                                        delete we.laterDelta[rawKey];
 
                                         var id = key[0];
                                         var type = key[1];
@@ -471,6 +474,7 @@ var we = {
                                         }
                                         else {
                                                 delete we.state[rawKey];
+                                                delete we.laterDelta[rawKey];
 
                                                 var item = $(id);
                                                 if (item) {
