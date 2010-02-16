@@ -154,10 +154,7 @@ var we = {
         __submitChanges: function() {
                 if (--we.transactionDepth == 0) {
                         Hash.extend(we.ignoreInIncomingDelta, we.delta);
-                        Hash.extend(we.state, we.delta);
-                        Hash.removeNullValues(we.state);
 
-                        // Apply to local state and view
                         we.isLocalModification = true;
                         we.applyStateDelta(we.delta);
                         we.isLocalModification = false;
@@ -166,7 +163,6 @@ var we = {
                         console.log(deltaToString(we.delta));
                         console.log();
 
-                        // Send to wave server (on next stateUpdated there will be an empty delta)
                         wave.getState().submitDelta(we.delta);
 
                         we.delta = {};
@@ -559,6 +555,10 @@ function weStateUpdated() {
         var startTime = $time();
 
         if ((waveState = wave.getState())) {
+                console.log('weStateUpdated:');
+                console.log(deltaToString(waveState.state_));
+                console.log();
+                
 	        var oldRawState = we.rawState;
                 we.rawState = $H(waveState.state_).getClean();
 
