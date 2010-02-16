@@ -163,6 +163,9 @@ var we = {
 
                         wave.getState().submitDelta(we.delta);
 
+                        Hash.extend(we.rawState, we.delta);
+                        Hash.removeNullValues(we.rawState);
+
                         we.delta = {};
                 }
         },
