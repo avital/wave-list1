@@ -294,8 +294,6 @@ var we = {
                                                 } else {
                                                         we.state[rawKey] = val;
                                                         $(id).inject(itemAfter(val), 'before');
-
-                                                        debugger;
                                                 }
                                         }
                                         else if (type == 'val') {
@@ -316,8 +314,6 @@ var we = {
                                         var type = key[1];
 
                                         if (!$(id)) {
-                                                var pos = val;
-
                                                 var item = new Element('tr', {'class': 'item', id: id}).setStyle('display', 'none');
 
                                                 var itemRemove = $('remove-proto').clone().inject(item);
@@ -452,7 +448,8 @@ var we = {
                                         }
 
                                         if (type == 'pos') {
-                                                $(id).inject(itemAfter(pos), 'before');
+                                                $(id).inject(itemAfter(val), 'before');
+                                                debugger;
                                         }
                                         else if (type == 'val') {
                                                 $(id + '-text').set('text', val);
