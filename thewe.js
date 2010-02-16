@@ -531,7 +531,7 @@ function hideLaterDeltaNotify() {
 
 function applyLaterDelta() {
         if (Hash.getLength(we.laterDelta) > 0) {
-                we.applyStateDelta(we.laterDelta);
+                we.applyStateDelta(we.laterDelta, we.rawState);
                 we.laterDelta = {};
                 hideLaterDeltaNotify();
                 gadgets.window.adjustHeight();
