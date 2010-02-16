@@ -153,8 +153,10 @@ var we = {
 
         __submitChanges: function() {
                 if (--we.transactionDepth == 0) {
+                        Hash.extend(we.ignoreInIncomingDelta, we.delta);
+
                         we.isLocalModification = true;
-                        we.applyStateDelta(we.delta, we.rawState);
+                        we.applyStateDelta(we.delta, we.state);
                         we.isLocalModification = false;
 
                         console.log('Outgoing delta:');
@@ -269,7 +271,7 @@ var we = {
 	        }
         }),
 
-        applyStateDelta: function(delta, oldRawState) {
+        applyStateDelta: function(delta, oldState) {
                 Hash.each(delta, function(val, rawKey) {
                         var key = rawKey.split('.');
                         var oldVal = oldRawState[rawKey];
@@ -283,8 +285,8 @@ var we = {
 
                                         if (type == 'pos') {
                                                 if (((we.onItem &&
-                                                     (((oldVal <= oldRawState.get([we.onItem, 'pos'])) && (val > oldRawState.get([we.onItem, 'pos']))) ||
-                                                      ((oldVal >= oldRawState.get([we.onItem, 'pos'])) && (val < oldRawState.get([we.onItem, 'pos']))))) ||
+                                                     (((oldVal <= oldState.get([we.onItem, 'pos'])) && (val > oldState.get([we.onItem, 'pos']))) ||
+                                                      ((oldVal >= oldState.get([we.onItem, 'pos'])) && (val < oldState.get([we.onItem, 'pos']))))) ||
                                                     we.isMoving) &&
                                                     !we.isLocalModification) {
                                                         we.laterDelta[rawKey] = val;
@@ -555,11 +557,11 @@ function weStateUpdated() {
                 console.log(deltaToString(waveState.state_));
                 console.log();
 
-	        var oldRawState = we.rawState || new we.State();
-                we.rawState = new we.State();
-                Hash.extend(we.rawState, waveState.state_);
+	        var oldServerState = we.serverState || new we.State();
+                we.serverState = new we.State();
+                Hash.extend(we.serverState, waveState.state_);
 
-                var delta = stateDelta(oldRawState, we.rawState);
+                var delta = stateDelta(oldServerState, we.serverState);
 
                 console.log('Incoming delta:');
                 console.log(deltaToString(delta));
@@ -571,7 +573,17 @@ function weStateUpdated() {
                         delete we.laterDelta[key];
                 });
 
-                we.applyStateDelta(delta, oldRawState);
+                // ignore any elements in the delta with the same key as something that the user originally generated
+                Hash.each(we.ignoreInIncomingDelta, function(val, key) {
+                        if (delta[key] !== undefined) {
+                                if (delta[key] == val)
+                                        delete delta[key];
+
+                                delete we.ignoreInIncomingDelta[key];
+                        }
+                });
+
+                we.applyStateDelta(delta, oldServerState);
 
                 // @Q could this be more generic somehow? this same code appears in applyLaterDelta()
                 if (Hash.getLength(we.laterDelta) == 0)
