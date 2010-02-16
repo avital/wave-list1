@@ -269,6 +269,9 @@ var we = {
         }),
 
         applyStateDelta: function(delta, oldState) {
+                console.log('apply state delta:');
+                console.log(deltaToString(delta));
+                
                 Hash.each(delta, function(val, rawKey) {
                         var key = rawKey.split('.');
                         var oldVal = oldState[rawKey];
@@ -532,9 +535,21 @@ function hideLaterDeltaNotify() {
 
 function applyLaterDelta() {
         if (Hash.getLength(we.laterDelta) > 0) {
+                console.log('Apply later delta:');
+                console.log(deltaToString(we.laterDelta));
+
+                console.log('State:');
+                console.log(deltaToString(we.state));
+
                 var origLaterDelta = $H(we.laterDelta).getClean();
                 we.laterDelta = {};
                 we.applyStateDelta(origLaterDelta, we.state);
+
+                console.log('Post-apply later delta:');
+                console.log(deltaToString(we.laterDelta));
+
+                console.log('State:');
+                console.log(deltaToString(we.state));
 
                 if (Hash.getLength(we.laterDelta) == 0)
                         hideLaterDeltaNotify();
