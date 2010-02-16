@@ -165,9 +165,6 @@ var we = {
 
                         wave.getState().submitDelta(we.delta);
 
-                        Hash.extend(we.rawState, we.delta);
-                        Hash.removeNullValues(we.rawState);
-
                         we.delta = {};
                 }
         },
@@ -536,7 +533,7 @@ function hideLaterDeltaNotify() {
 
 function applyLaterDelta() {
         if (Hash.getLength(we.laterDelta) > 0) {
-                we.applyStateDelta(we.laterDelta, we.rawState);
+                we.applyStateDelta(we.laterDelta, we.state);
                 we.laterDelta = {};
                 hideLaterDeltaNotify();
                 gadgets.window.adjustHeight();
