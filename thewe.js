@@ -154,7 +154,7 @@ var we = {
         __submitChanges: function() {
                 if (--we.transactionDepth == 0) {
                         we.isLocalModification = true;
-                        we.applyStateDelta(we.delta);
+                        we.applyStateDelta(we.delta, we.rawState);
                         we.isLocalModification = false;
 
                         console.log('Outgoing delta:');
@@ -266,10 +266,10 @@ var we = {
 	        }
         }),
 
-        applyStateDelta: function(delta) {
+        applyStateDelta: function(delta, oldRawState) {
                 Hash.each(delta, function(val, rawKey) {
                         var key = rawKey.split('.');
-                        var oldVal = we.rawState[rawKey];
+                        var oldVal = oldRawState[rawKey];
 
                         if (val) {
                                 if (oldVal) {
@@ -280,8 +280,8 @@ var we = {
 
                                         if (type == 'pos') {
                                                 if (((we.onItem &&
-                                                     (((oldVal <= we.state.get([we.onItem, 'pos'])) && (val > we.state.get([we.onItem, 'pos']))) ||
-                                                      ((oldVal >= we.state.get([we.onItem, 'pos'])) && (val < we.state.get([we.onItem, 'pos']))))) ||
+                                                     (((oldVal <= oldRawState.get([we.onItem, 'pos'])) && (val > oldRawState.get([we.onItem, 'pos']))) ||
+                                                      ((oldVal >= oldRawState.get([we.onItem, 'pos'])) && (val < oldRawState.get([we.onItem, 'pos']))))) ||
                                                     we.isMoving) &&
                                                     !we.isLocalModification) {
                                                         we.laterDelta[rawKey] = val;
@@ -558,7 +558,8 @@ function weStateUpdated() {
                 console.log();
 
 	        var oldRawState = we.rawState;
-                we.rawState = $H(waveState.state_).getClean();
+                we.rawState = new we.State();
+                Hash.extend(we.rawState, waveState.state_);
 
                 var delta = stateDelta(oldRawState, we.rawState);
 
@@ -576,7 +577,7 @@ function weStateUpdated() {
                 console.log(deltaToString(delta));
                 console.log();
 
-                we.applyStateDelta(delta);
+                we.applyStateDelta(delta, oldRawState);
 
                 // @Q could this be more generic somehow? this same code appears in applyLaterDelta()
                 if (Hash.getLength(we.laterDelta) == 0)
