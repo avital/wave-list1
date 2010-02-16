@@ -629,7 +629,7 @@ function main() {
 //                                console.log('el.getPrevious(): ' + el.getPrevious().id + ', text: ' + el.getPrevious().get('text'));
 //                                console.log('this.origPrev: ' + this.origPrev.id + ', text: ' + this.origPrev.get('text'));
 
-                                if (this.origPrev && (el.getPrevious() != this.origPrev)) {
+                                if (this.origPrev !== undefined && (el.getPrevious() != this.origPrev)) {
                                         var prev = el.getPrevious();
                                         var next = el.getNext();
 
